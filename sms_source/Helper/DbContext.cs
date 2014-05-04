@@ -80,6 +80,8 @@ namespace Helper
 
         public void Where(string col, string where, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" AND ");
             this.where.Append(col);
             this.where.Append(where);
@@ -88,6 +90,8 @@ namespace Helper
 
         public void Where(string col, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" AND  ");
             this.where.Append(col);
             this.where.Append("='" + value + "'");
@@ -95,12 +99,16 @@ namespace Helper
 
         public void OrWhere(string col, string where, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" OR  ").Append(col)
                 .Append(where).Append("'" + value + "'");
         }
 
         public void OrWhere(string col, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" OR  ").Append(col)
                       .Append("='" + value + "'");
         }
@@ -207,8 +215,11 @@ namespace Helper
             this.orderby.Clear();
             this.Joinin.Clear();
             this.column.Clear();
-
-            return database.getData(sql);
+            var dt = database.getData(sql);
+                if(dt.Rows.Count > 0)
+                    return dt;
+                else
+                    return new DataTable();
         }
 
         /// <summary>
@@ -249,7 +260,7 @@ namespace Helper
         public List<T> FetchObject()
         {
             var datajson = FetchJson();
-            if (datajson != "[]")
+            if (datajson != "")
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer =
                 new System.Web.Script.Serialization.JavaScriptSerializer();
@@ -312,9 +323,11 @@ namespace Helper
         /// TAO SỬA Ở Đây.
         public void Delete()
         {
+            if (this.queryString == null)
+                this.queryString = new StringBuilder();
             string table = type.Name;
             this.queryString.Append("DELETE FROM ").Append(table)
-                            .Append(" WHERE 1 = 1 ").Append(where);
+                            .Append(" WHERE 1 = 1 ").Append(this.where);
 
         }
 
