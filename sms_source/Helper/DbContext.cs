@@ -309,11 +309,12 @@ namespace Helper
             this.queryString.Clear().Append(s);
         }
 
+        /// TAO SỬA Ở Đây.
         public void Delete()
         {
             string table = type.Name;
-            this.queryString.Append("DELETE FROM").Append(table)
-                            .Append("WHER 1 = 1").Append(where);
+            this.queryString.Append("DELETE FROM ").Append(table)
+                            .Append(" WHERE 1 = 1 ").Append(where);
 
         }
 
