@@ -206,7 +206,10 @@ namespace Helper
                 sql = this.limit.Replace("{1}", queryString.ToString()).Append(orderby).ToString();
             }
             else
-                sql = this.queryString.Replace("{3}", where.ToString()).Append(orderby).ToString();
+                if(this.where != null)
+                    sql = this.queryString.Replace("{3}", where.ToString()).Append(orderby).ToString();
+                else
+                    sql = this.queryString.Replace("{3}"," ").Append(orderby).ToString();
             this.queryString.Clear();
             this.limit.Clear();
             this.where.Clear();
