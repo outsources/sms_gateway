@@ -42,9 +42,6 @@
     <Reference Include="core">
       <HintPath>..\..\..\..\..\Library\ASP net\test\core\bin\Debug\core.dll</HintPath>
     </Reference>
-    <Reference Include="Helper">
-      <HintPath>..\Helper\obj\Debug\Helper.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -242,6 +239,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Helper\Helper.csproj">
+      <Project>{cd4565d9-33e6-4271-83e0-8618de349a79}</Project>
+      <Name>Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
