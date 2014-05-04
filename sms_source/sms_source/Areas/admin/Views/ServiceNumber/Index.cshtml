@@ -1,0 +1,72 @@
+﻿@model List<sms_source.Areas.admin.Models.service_numbers>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+
+<h2>Quản lý đầu số dịch vụ</h2>
+<div style="float: left; width: 100%">
+    <label>Chọn đầu số:</label>
+    <select>
+        <option value="0">7x47</option>
+    </select>
+</div>
+
+<div style="float: left; width: 100%;">
+    <fieldset>
+        <legend>Danh sách đầu số</legend>
+        <table class="tableList">
+            <tr class="header">
+                <th scope="col" style="width: 30px;" rowspan="2">STT</th>
+                <th scope="col" style="width: 10%;" rowspan="2">Đầu số</th>
+                <th scope="col" style="width: 50%;" colspan="3">Giá cước (vnđ)</th>                
+                <th scope="col" style="width: 15%;" rowspan="2">Trạng thái</th>
+                <th scope="col" style="width: 50px;" rowspan="2">&nbsp;</th>
+            </tr>
+            <tr class="header">
+                <th>MobiFone</th>
+                <th>Vinaphone</th>
+                <th>Viettel</th>
+            </tr>
+            @{
+                for (int i = 0; i <= 7; i++)
+                {
+                <tr>
+                    <td align="center">
+                        <span id="ctphMain_grvCategories_lblSTT_0">@(i + 1)</span>
+                    </td>
+                    <td>
+                        <span id="ctphMain_grvCategories_lblCategoryName_0">7@(i)47</span>
+                    </td>
+                    <td>185</td>
+                    <td>6080</td>
+                    <td>7200</td>                    
+                    <td>
+                        <span id="ctphMain_grvCategories_lblCategoryLevel_0">Đang hoạt động</span>
+                    </td>
+                    <td>
+                        <a style="width: 60px" title="Sửa" class="table-icon edit"
+                            href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                        <a title="Xóa" class="table-icon delete" href="#"></a>
+
+                    </td>
+                </tr>
+                }
+            }
+
+
+
+        </table>
+    </fieldset>
+    <div style="float: left; width: 100%;">        
+        <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+        <a style="width: 60px; float: right" href="javascript:;" data-toggle="modal"
+            data-target="#myModal" class="button add">Thêm mới</a>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>

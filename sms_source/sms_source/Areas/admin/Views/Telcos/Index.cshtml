@@ -1,0 +1,74 @@
+﻿@model List<sms_source.Areas.admin.Models.telcos>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+<h2>Quản lý nhà mạng</h2>
+
+<div style="float: left; width: 100%;">
+    <fieldset>
+        <legend>Danh sách nhà mạng</legend>
+        <div id="result"></div>
+        <table class="tableList" cellspacing="0" rules="all" border="1" id="ctphMain_grvCategories">
+            <tr class="header">
+                <th scope="col" style="width: 30px;">STT</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Lần cập nhật cuối</th>
+                <th scope="col" style="width: 50px;">&nbsp;</th>
+            </tr>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td align="center">
+                        <span>@(i + 1)</span>
+                    </td>
+                    <td>
+                        <span>@Model[i].telcos_name</span>
+                    </td>
+                    <td>
+                        <span>@Model[i].info</span>
+                    </td>
+                    <td>
+                        <span>@Model[i].create_date</span>
+                    </td>
+                    <td>
+                        <span>@Model[i].update_date</span>
+                    </td>
+                    <td>
+                                          
+                        @Ajax.ActionLink(" ", "Update", "Telcos",
+                                         new {id = @Model[i].id}, 
+                                         new AjaxOptions() { UpdateTargetId = "myModal" },
+                                         new { @class = "table-icon edit", @title = "Sửa", 
+                                             data_toggle = "modal", data_target = "#myModal", style = "width: 60px;"})
+                        
+                        @Ajax.ActionLink(" ", "Index", "Telcos",
+                                         new {delID = @Model[i].id}, 
+                                         new AjaxOptions() { Confirm = "Delete?", OnSuccess = "removeRow()"},
+                                         new { @class = "table-icon delete", @title = "Xóa", style = "width: 60px;"})      
+                        
+                        @*@Ajax.ActionLink( new AjaxOptions { Confirm = "Delete?", HttpMethod = "Delete", OnSuccess = "function() { $(this).parent().parent().remove() }" })*@                  
+                    </td>
+                </tr>
+            }
+        </table>
+    </fieldset>
+    <div style="float: left; width: 100%;">
+        <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>        
+        @Ajax.ActionLink("Thêm mới", "Insert", "Telcos", new AjaxOptions() { UpdateTargetId = "myModal" },
+        new { @class = "button add", data_toggle = "modal", data_target = "#myModal", style = "width: 60px; float: right" })
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+<script type="text/javascript">
+    function removeRow() {
+         $(this).parent().parent().remove();
+    }
+</script>
