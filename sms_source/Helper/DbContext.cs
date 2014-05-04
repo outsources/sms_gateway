@@ -315,7 +315,7 @@ namespace Helper
 
             }
             string s = this.queryString.ToString().Substring(0, this.queryString.Length - 1);
-            this.queryString.Clear().Append(s).Append(" ").Append(where);
+            this.queryString.Clear().Append(s).Append(" where 1=1 ").Append(where);
         }
 
         /// TAO SỬA Ở Đây.
