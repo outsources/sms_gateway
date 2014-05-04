@@ -19,8 +19,8 @@ namespace sms_source.Areas.admin.Controllers
         public ActionResult Index()
         {
             _dbContext.Select();
-            //var lstServiceNumber = _dbContext.FetchObject();
-            var lstServiceNumber = new List<service_numbers>();
+            var lstServiceNumber = _dbContext.FetchObject();
+            //var lstServiceNumber = new List<service_numbers>();
             return View(lstServiceNumber);
         }
 

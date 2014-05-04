@@ -317,6 +317,25 @@ namespace Helper
 
         }
 
+        public string getColumnValue(string table,string col,Dictionary<string,string> obj )
+        {
+
+            StringBuilder sql = new StringBuilder();
+            sql.Append("SELECT ").Append(col).Append(" from ").Append(table).Append(" where ");
+            foreach (var item in obj)
+            {
+                sql.Append(item.Key).Append(" = '").Append(item.Value).Append("' and ");
+            }
+
+            string query = sql.ToString().Substring(0, sql.Length - 4);
+            var dt = database.getData(query);
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0][col].ToString();
+            else
+                return "";
+
+        }
+
         public string test()
         {
             return this.queryString.ToString();
