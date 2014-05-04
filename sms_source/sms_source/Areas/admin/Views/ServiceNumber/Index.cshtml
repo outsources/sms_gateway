@@ -1,6 +1,6 @@
 ﻿@using Helper
 @using sms_source.Areas.admin.Models
-@model List<sms_source.Areas.admin.Models.service_numbers>
+@model List<service_numbers>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
@@ -20,9 +20,9 @@
         <legend>Danh sách đầu số</legend>
         <table class="tableList">
             @{
-                var _dbTelco = new DbContext<telcos>();
-                _dbTelco.Select();
-                var lstTelco = _dbTelco.FetchObject();
+                var dbTelco = new DbContext<telcos>();
+                dbTelco.Select();
+                var lstTelco = dbTelco.FetchObject();
                 
             }
             <tr class="header">
@@ -50,21 +50,40 @@
                             <span id="ctphMain_grvCategories_lblCategoryName_0">@Model[i].service</span>
                         </td>
                         
-                        @for (int j= 0; j < lstTelco.Count; j++)
+                        @for (int j = 0; j < lstTelco.Count; j++)
                         {
-                            <td>@_dbTelco.getColumnValue("service_rates","price",
-                                    new Dictionary<string, string>
-                                        {
-                                            {"service_id",Model[i].id.ToString()},
-                                            {"telcos_id",lstTelco[j].id.ToString()},
-                                            
-                                        })</td>
+                            var price = dbTelco.getColumnValue("service_rates", "price", new Dictionary<string, string>
+                                {
+                                    {"service_id", Model[i].id.ToString()},
+                                    {"telcos_id", lstTelco[j].id.ToString()},
+
+                                });
+                            if (price == "")
+                            {
+                                <td>0</td>
+                            }
+                            else
+                            {
+                                <td>@price</td>
+                            }
+
                         }
                        
-                 
-                        <td>
-                            <span id="ctphMain_grvCategories_lblCategoryLevel_0">Đang hoạt động</span>
-                        </td>
+                        @{
+                        if (Model[i].active)
+                        {
+                            <td>
+                                <span>Đang hoạt động</span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span>Ngừng hoạt động</span>
+                            </td>
+                        }
+                        }
+                        
                         <td>
                             <a style="width: 60px" title="Sửa" class="table-icon edit"
                                href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
@@ -81,8 +100,9 @@
     </fieldset>
     <div style="float: left; width: 100%;">        
         <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
-        <a style="width: 60px; float: right" href="javascript:;" data-toggle="modal"
-            data-target="#myModal" class="button add">Thêm mới</a>
+        
+        @Ajax.ActionLink("Thêm mới", "Insert", "ServiceNumber", new AjaxOptions() { UpdateTargetId = "myModal" },
+        new { @class = "button add", data_toggle = "modal", data_target = "#myModal", style = "width: 60px; float: right" })
     </div>
 </div>
 
