@@ -28,7 +28,7 @@
             <tr class="header">
                 <th scope="col" style="width: 30px;" rowspan="2">STT</th>
                 <th scope="col" style="width: 10%;" rowspan="2">Đầu số</th>
-                <th scope="col" style="width: 50%;" colspan="@(lstTelco.Count)">Giá cước (vnđ)</th>                
+                <th scope="col" style="width: 50%;" colspan="@(lstTelco.Count)">Giá cước (vnđ)</th>
                 <th scope="col" style="width: 15%;" rowspan="2">Trạng thái</th>
                 <th scope="col" style="width: 50px;" rowspan="2">&nbsp;</th>
             </tr>
@@ -37,60 +37,72 @@
                 {
                     <th>@lstTelco[i].telcos_name</th>
                 }
-                
+
             </tr>
             @{                
                 for (int i = 0; i < Model.Count; i++)
                 {
-                    <tr>
-                        <td align="center">
-                            <span id="ctphMain_grvCategories_lblSTT_0">@(i + 1)</span>
-                        </td>
-                        <td>
-                            <span id="ctphMain_grvCategories_lblCategoryName_0">@Model[i].service</span>
-                        </td>
-                        
-                        @for (int j = 0; j < lstTelco.Count; j++)
-                        {
-                            var price = dbTelco.getColumnValue("service_rates", "price", new Dictionary<string, string>
+                <tr>
+                    <td align="center">
+                        <span id="ctphMain_grvCategories_lblSTT_0">@(i + 1)</span>
+                    </td>
+                    <td>
+                        <span id="ctphMain_grvCategories_lblCategoryName_0">@Model[i].service</span>
+                    </td>
+
+                    @for (int j = 0; j < lstTelco.Count; j++)
+                    {
+                        var price = dbTelco.getColumnValue("service_rates", "price", new Dictionary<string, string>
                                 {
                                     {"service_id", Model[i].id.ToString()},
                                     {"telcos_id", lstTelco[j].id.ToString()},
 
                                 });
-                            if (price == "")
-                            {
-                                <td>0</td>
-                            }
-                            else
-                            {
-                                <td>@price</td>
-                            }
-
-                        }
-                       
-                        @{
-                        if (Model[i].active)
+                        if (price == "")
                         {
-                            <td>
-                                <span>Đang hoạt động</span>
-                            </td>
+                        <td>0</td>
                         }
                         else
                         {
-                            <td>
-                                <span>Ngừng hoạt động</span>
-                            </td>
+                        <td>@price</td>
                         }
-                        }
-                        
-                        <td>
-                            <a style="width: 60px" title="Sửa" class="table-icon edit"
-                               href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
-                            <a title="Xóa" class="table-icon delete" href="#"></a>
 
+                    }
+
+                    @{
+                    if (Model[i].active)
+                    {
+                        <td>
+                            <span>Đang hoạt động</span>
                         </td>
-                    </tr>
+                    }
+                    else
+                    {
+                        <td>
+                            <span>Ngừng hoạt động</span>
+                        </td>
+                    }
+                    }
+
+                    <td>
+                        @Ajax.ActionLink(" ", "Update", "ServiceNumber",
+                                         new { id = @Model[i].id },
+                                         new AjaxOptions() { UpdateTargetId = "myModal" },
+                                         new
+                                         {
+                                             @class = "table-icon edit",
+                                             @title = "Sửa",
+                                             data_toggle = "modal",
+                                             data_target = "#myModal",
+                                             style = "width: 60px;"
+                                         })
+
+                        @Ajax.ActionLink(" ", "Index", "ServiceNumber",
+                                         new { delID = @Model[i].id },
+                                         new AjaxOptions() { Confirm = "Delete?"},
+                                         new { @class = "table-icon delete", @title = "Xóa", style = "width: 60px;" })
+                    </td>
+                </tr>
                 }
             }
 
@@ -98,9 +110,9 @@
 
         </table>
     </fieldset>
-    <div style="float: left; width: 100%;">        
+    <div style="float: left; width: 100%;">
         <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
-        
+
         @Ajax.ActionLink("Thêm mới", "Insert", "ServiceNumber", new AjaxOptions() { UpdateTargetId = "myModal" },
         new { @class = "button add", data_toggle = "modal", data_target = "#myModal", style = "width: 60px; float: right" })
     </div>

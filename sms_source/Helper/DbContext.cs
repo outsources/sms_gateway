@@ -281,7 +281,7 @@ namespace Helper
             PropertyInfo[] properties = type.GetProperties();
             StringBuilder col = new StringBuilder();
             StringBuilder val = new StringBuilder();
-            int mtdt = properties.Length;
+            int mtdt = properties.Length;            
             for (int i = 1; i < mtdt; i++)
             {
                 PropertyInfo property = properties[i];

@@ -48,27 +48,77 @@ namespace sms_source.Areas.admin.Controllers
                 _dbContext.Save();
                 var topID = _dbContext.id;
 
-                //Thực hiện Insert Bảng Service_Telco
+                //Thực hiện Insert Bảng Service_rate
                 for (var i = 0; i < countTelco; i++)
                 {
-                    if (string.IsNullOrEmpty((Request["txtPrice" + i]))) continue;
                     var objServiceTelco = new service_rates
                         {
                             service_id = topID,
                             telcos_id = int.Parse(Request["hdTelcoID" + i]),
-                            price = float.Parse(Request["txtPrice" + i])
+                            price = string.IsNullOrEmpty((Request["txtPrice" + i])) ? 0 : float.Parse(Request["txtPrice" + i])
                         };
                     _dbContextServiceRate.Create(objServiceTelco);
                     _dbContextServiceRate.Save();
                 }
 
-                return RedirectToAction("Index");
+                return Content("NGON");
             }
 
             return View(model);
         }
 
+        public ActionResult Update(int? id)
+        {
+            if (id != null)
+            {
+                _dbContext.Select();
+                _dbContext.Where("id", id.Value.ToString());
+                var listServiceNumber = _dbContext.FetchObject();
 
+                _dbContextTelcos.Select(new[] { "id", "telcos_name" });
+                ViewBag.lstTelcos = _dbContextTelcos.FetchObject();
+
+                return View(listServiceNumber[0]);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Update(int countTelco, service_numbers model)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                //Thực hiện Update Bảng Service_Number                
+                _dbContext.Update(new service_numbers
+                {
+                    service = model.service,
+                    create_date = DateTime.Now,
+                    update_date = DateTime.Now, // model.update_date
+                    active = bool.Parse(Request["cbStatus"])
+                });
+                _dbContext.Where("id", model.id.ToString());
+                _dbContext.Save();
+
+                //Thực hiện Update Bảng Service_rate
+                for (var i = 0; i < countTelco; i++)
+                {                    
+                    var objServiceTelco = new service_rates
+                    {
+                        service_id = model.id,
+                        telcos_id = int.Parse(Request["hdTelcoID" + i]),
+                        price = float.Parse(Request["txtPrice" + i])
+                    };
+                    _dbContextServiceRate.Update(objServiceTelco);
+                    _dbContextServiceRate.Save();
+                }
+
+                return Content("NGON");
+            }
+
+            return View(model);
+        }
 
     }
 }

@@ -84,7 +84,7 @@ namespace sms_source.Areas.admin.Controllers
                     });
                 _dbContext.Where("id", model.id.ToString());
                 _dbContext.Save();
-                return RedirectToAction("Index");
+                return Content("NGON");
             }
 
             return View(model);
