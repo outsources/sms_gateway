@@ -64,7 +64,7 @@ namespace Helper
             {
                 this.column.Append(item + ",");
             }
-            queryString.Append("SELECT {0} , ROW_NUMBER() OVER (ORDER BY id) AS [indexs]  FROM {1} {2} WHERE 1=1 {3}");
+            queryString.Append("SELECT {0} ROW_NUMBER() OVER (ORDER BY id) AS [indexs]  FROM {1} {2} WHERE 1=1 {3}");
         }
 
         public void Join<T>(string col_1, string col_2) where T : class
