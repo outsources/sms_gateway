@@ -237,7 +237,7 @@ namespace Helper
                 return serializer.Serialize(rows);
             }
             else
-                return "[]";
+                return "";
         }
 
 
@@ -249,9 +249,14 @@ namespace Helper
         public List<T> FetchObject()
         {
             var datajson = FetchJson();
-            System.Web.Script.Serialization.JavaScriptSerializer serializer =
-            new System.Web.Script.Serialization.JavaScriptSerializer();
-            return serializer.Deserialize<List<T>>(datajson);
+            if (datajson != "[]")
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer =
+                new System.Web.Script.Serialization.JavaScriptSerializer();
+                return serializer.Deserialize<List<T>>(datajson);
+            }
+            else
+                return new List<T>();
         }
 
         public void Create(T obj)
