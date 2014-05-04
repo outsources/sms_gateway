@@ -80,6 +80,8 @@ namespace Helper
 
         public void Where(string col, string where, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" AND ");
             this.where.Append(col);
             this.where.Append(where);
@@ -88,6 +90,8 @@ namespace Helper
 
         public void Where(string col, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" AND  ");
             this.where.Append(col);
             this.where.Append("='" + value + "'");
@@ -95,12 +99,16 @@ namespace Helper
 
         public void OrWhere(string col, string where, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" OR  ").Append(col)
                 .Append(where).Append("'" + value + "'");
         }
 
         public void OrWhere(string col, string value)
         {
+            if (this.where == null)
+                this.where = new StringBuilder();
             this.where.Append(" OR  ").Append(col)
                       .Append("='" + value + "'");
         }
@@ -315,9 +323,11 @@ namespace Helper
         /// TAO SỬA Ở Đây.
         public void Delete()
         {
+            if (this.queryString == null)
+                this.queryString = new StringBuilder();
             string table = type.Name;
             this.queryString.Append("DELETE FROM ").Append(table)
-                            .Append(" WHERE 1 = 1 ").Append(where);
+                            .Append(" WHERE 1 = 1 ").Append(this.where);
 
         }
 
