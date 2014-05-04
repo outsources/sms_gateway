@@ -1,4 +1,6 @@
-﻿@model List<sms_source.Areas.admin.Models.service_numbers>
+﻿@using Helper
+@using sms_source.Areas.admin.Models
+@model List<sms_source.Areas.admin.Models.service_numbers>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
@@ -17,41 +19,59 @@
     <fieldset>
         <legend>Danh sách đầu số</legend>
         <table class="tableList">
+            @{
+                var _dbTelco = new DbContext<telcos>();
+                _dbTelco.Select();
+                var lstTelco = _dbTelco.FetchObject();
+                
+            }
             <tr class="header">
                 <th scope="col" style="width: 30px;" rowspan="2">STT</th>
                 <th scope="col" style="width: 10%;" rowspan="2">Đầu số</th>
-                <th scope="col" style="width: 50%;" colspan="3">Giá cước (vnđ)</th>                
+                <th scope="col" style="width: 50%;" colspan="@(lstTelco.Count)">Giá cước (vnđ)</th>                
                 <th scope="col" style="width: 15%;" rowspan="2">Trạng thái</th>
                 <th scope="col" style="width: 50px;" rowspan="2">&nbsp;</th>
             </tr>
             <tr class="header">
-                <th>MobiFone</th>
-                <th>Vinaphone</th>
-                <th>Viettel</th>
-            </tr>
-            @{
-                for (int i = 0; i <= 7; i++)
+                @for (int i = 0; i < lstTelco.Count; i++)
                 {
-                <tr>
-                    <td align="center">
-                        <span id="ctphMain_grvCategories_lblSTT_0">@(i + 1)</span>
-                    </td>
-                    <td>
-                        <span id="ctphMain_grvCategories_lblCategoryName_0">7@(i)47</span>
-                    </td>
-                    <td>185</td>
-                    <td>6080</td>
-                    <td>7200</td>                    
-                    <td>
-                        <span id="ctphMain_grvCategories_lblCategoryLevel_0">Đang hoạt động</span>
-                    </td>
-                    <td>
-                        <a style="width: 60px" title="Sửa" class="table-icon edit"
-                            href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
-                        <a title="Xóa" class="table-icon delete" href="#"></a>
+                    <th>@lstTelco[i].telcos_name</th>
+                }
+                
+            </tr>
+            @{                
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td align="center">
+                            <span id="ctphMain_grvCategories_lblSTT_0">@(i + 1)</span>
+                        </td>
+                        <td>
+                            <span id="ctphMain_grvCategories_lblCategoryName_0">@Model[i].service</span>
+                        </td>
+                        
+                        @for (int j= 0; j < lstTelco.Count; j++)
+                        {
+                            <td>@_dbTelco.getColumnValue("service_rates","price",
+                                    new Dictionary<string, string>
+                                        {
+                                            {"service_id",Model[i].id.ToString()},
+                                            {"telcos_id",lstTelco[j].id.ToString()},
+                                            
+                                        })</td>
+                        }
+                       
+                 
+                        <td>
+                            <span id="ctphMain_grvCategories_lblCategoryLevel_0">Đang hoạt động</span>
+                        </td>
+                        <td>
+                            <a style="width: 60px" title="Sửa" class="table-icon edit"
+                               href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                            <a title="Xóa" class="table-icon delete" href="#"></a>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 }
             }
 
