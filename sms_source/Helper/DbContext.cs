@@ -207,8 +207,11 @@ namespace Helper
             this.orderby.Clear();
             this.Joinin.Clear();
             this.column.Clear();
-
-            return database.getData(sql);
+            var dt = database.getData(sql);
+                if(dt.Rows.Count > 0)
+                    return dt;
+                else
+                    return new DataTable();
         }
 
         /// <summary>
@@ -249,7 +252,7 @@ namespace Helper
         public List<T> FetchObject()
         {
             var datajson = FetchJson();
-            if (datajson != "[]")
+            if (datajson != "")
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer =
                 new System.Web.Script.Serialization.JavaScriptSerializer();
@@ -312,8 +315,8 @@ namespace Helper
         public void Delete()
         {
             string table = type.Name;
-            this.queryString.Append("DELETE FROM").Append(table)
-                            .Append("WHER 1 = 1").Append(where);
+            this.queryString.Append("DELETE FROM ").Append(table)
+                            .Append(" WHERE 1 = 1 ").Append(where);
 
         }
 
