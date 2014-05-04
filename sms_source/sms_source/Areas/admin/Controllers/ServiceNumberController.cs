@@ -16,11 +16,22 @@ namespace sms_source.Areas.admin.Controllers
         readonly DbContext<service_rates> _dbContextServiceRate = new DbContext<service_rates>();
         readonly DbContext<telcos> _dbContextTelcos = new DbContext<telcos>();
 
-        public ActionResult Index()
+        public ActionResult Index(int? delID)
         {
+            if (delID != null)
+            {
+                //Delete Bảng giữa
+                _dbContextServiceRate.Where("service_id",delID.Value.ToString());
+                _dbContextServiceRate.Delete();
+                _dbContextServiceRate.Save();
+
+                //Delete Bảng chính
+                _dbContext.Where("id", delID.Value.ToString());
+                _dbContext.Delete();
+                _dbContext.Save();
+            }
             _dbContext.Select();
-            var lstServiceNumber = _dbContext.FetchObject();
-            //var lstServiceNumber = new List<service_numbers>();
+            var lstServiceNumber = _dbContext.FetchObject();            
             return View(lstServiceNumber);
         }
 
@@ -40,8 +51,8 @@ namespace sms_source.Areas.admin.Controllers
                 var modelInsert = new service_numbers
                 {
                     service = model.service,
-                    create_date = DateTime.Now,
-                    update_date = DateTime.Now, // model.update_date
+                    create_date = DateTime.Parse(DateTime.Now.ToLongDateString()),
+                    update_date = DateTime.Parse(DateTime.Now.ToLongDateString()), // model.update_date
                     active = bool.Parse(Request["cbStatus"])
                 };
                 _dbContext.Create(modelInsert);
@@ -61,7 +72,7 @@ namespace sms_source.Areas.admin.Controllers
                     _dbContextServiceRate.Save();
                 }
 
-                return Content("NGON");
+                return Content("OK");
             }
 
             return View(model);
@@ -91,30 +102,33 @@ namespace sms_source.Areas.admin.Controllers
             if (ModelState.IsValid)
             {
                 //Thực hiện Update Bảng Service_Number                
+                _dbContext.Where("id", model.id.ToString());
                 _dbContext.Update(new service_numbers
                 {
                     service = model.service,
-                    create_date = DateTime.Now,
-                    update_date = DateTime.Now, // model.update_date
+                    create_date = model.create_date,
+                    update_date = DateTime.Parse(DateTime.Now.ToLongDateString()), // model.update_date
                     active = bool.Parse(Request["cbStatus"])
-                });
-                _dbContext.Where("id", model.id.ToString());
+                });                
                 _dbContext.Save();
 
                 //Thực hiện Update Bảng Service_rate
                 for (var i = 0; i < countTelco; i++)
-                {                    
+                {
+                    
                     var objServiceTelco = new service_rates
                     {
                         service_id = model.id,
                         telcos_id = int.Parse(Request["hdTelcoID" + i]),
                         price = float.Parse(Request["txtPrice" + i])
                     };
+                    _dbContextServiceRate.Where("service_id", objServiceTelco.service_id.ToString());
+                    _dbContextServiceRate.Where("telcos_id", objServiceTelco.telcos_id.ToString());
                     _dbContextServiceRate.Update(objServiceTelco);
                     _dbContextServiceRate.Save();
                 }
 
-                return Content("NGON");
+                return Content("OK");
             }
 
             return View(model);

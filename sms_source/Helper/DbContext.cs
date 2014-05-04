@@ -30,7 +30,7 @@ namespace Helper
 
         public DbContext()
         {
-            this.unicode = new string[]{};
+            this.unicode = new string[] { };
             this.type = typeof(T);
         }
 
@@ -206,15 +206,15 @@ namespace Helper
                 sql = this.limit.Replace("{1}", queryString.ToString()).Append(orderby).ToString();
             }
             else
-                if(this.where != null)
+                if (this.where != null)
                     sql = this.queryString.Replace("{3}", where.ToString()).Append(orderby).ToString();
                 else
-                    sql = this.queryString.Replace("{3}"," ").Append(orderby).ToString();
+                    sql = this.queryString.Replace("{3}", " ").Append(orderby).ToString();
             var dt = database.getData(sql);
-                if(dt.Rows.Count > 0)
-                    return dt;
-                else
-                    return new DataTable();
+            if (dt.Rows.Count > 0)
+                return dt;
+            else
+                return new DataTable();
         }
 
         /// <summary>
@@ -272,19 +272,19 @@ namespace Helper
             this.queryString = new StringBuilder();
             this.getIdQuery = new StringBuilder();
             this.queryString.Append("INSERT " + table);
-            this.getIdQuery.Append("SELECT id FROM " + table + " WHERE 1=1");            
+            this.getIdQuery.Append("SELECT id FROM " + table + " WHERE 1=1");
             PropertyInfo[] properties = type.GetProperties();
             StringBuilder col = new StringBuilder();
             StringBuilder val = new StringBuilder();
-            int mtdt = properties.Length;            
+            int mtdt = properties.Length;
             for (int i = 1; i < mtdt; i++)
             {
                 PropertyInfo property = properties[i];
                 this.getIdQuery.Append(" AND  " + property.Name);
                 this.getIdQuery.Append("='" + property.GetValue(obj, null) + "'");
-                col.Append(property.Name+",");
+                col.Append(property.Name + ",");
                 if (this.unicode.Length > 0 && unicode.Contains(property.Name))
-                   val.Append("N'").Append(property.GetValue(obj, null)).Append("',");
+                    val.Append("N'").Append(property.GetValue(obj, null)).Append("',");
                 else
                     val.Append("'").Append(property.GetValue(obj, null)).Append("',");
 
@@ -306,13 +306,23 @@ namespace Helper
             for (int i = 1; i < mtdt; i++)
             {
                 PropertyInfo property = properties[i];
-                if (property.GetValue(obj, null) != null && !property.Name.Equals("create_date"))
-                this.queryString.Append(property.Name).Append("='")
-                                .Append(property.GetValue(obj, null)).Append("',");
+                if ((property.GetValue(obj, null) != null
+                            && !property.Name.Equals("create_date"))
+                            || property.GetValue(obj, null) != "0")
+                {
+                    if (this.unicode.Length > 0 && unicode.Contains(property.Name))
+                        this.queryString.Append(property.Name).Append("=N'")
+                                        .Append(property.GetValue(obj, null)).Append("',");
+                    else
+                        this.queryString.Append(property.Name).Append("='")
+                                        .Append(property.GetValue(obj, null)).Append("',");
+                }
+
 
             }
             string s = this.queryString.ToString().Substring(0, this.queryString.Length - 1);
-            this.queryString.Clear().Append(s).Append(" where 1=1 ").Append(where);
+            this.queryString.Clear().Append(s).Append(" where 1=1 ").Append(this.where);
+            this.where.Clear();
         }
 
         /// TAO SỬA Ở Đây.
@@ -326,7 +336,7 @@ namespace Helper
 
         }
 
-        public string getColumnValue(string table,string col,Dictionary<string,string> obj )
+        public string getColumnValue(string table, string col, Dictionary<string, string> obj)
         {
 
             StringBuilder sql = new StringBuilder();
@@ -353,7 +363,8 @@ namespace Helper
         public bool Save()
         {
             int i = database.ExecuteQuery(this.queryString.ToString());
-            queryString.Clear();
+            this.queryString.Clear();
+
             if (i > 0)
             {
                 if (getIdQuery != null)
