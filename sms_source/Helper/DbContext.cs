@@ -210,12 +210,6 @@ namespace Helper
                     sql = this.queryString.Replace("{3}", where.ToString()).Append(orderby).ToString();
                 else
                     sql = this.queryString.Replace("{3}"," ").Append(orderby).ToString();
-            this.queryString.Clear();
-            this.limit.Clear();
-            this.where.Clear();
-            this.orderby.Clear();
-            this.Joinin.Clear();
-            this.column.Clear();
             var dt = database.getData(sql);
                 if(dt.Rows.Count > 0)
                     return dt;
