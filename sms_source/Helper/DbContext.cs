@@ -44,7 +44,6 @@ namespace Helper
         {
             this.queryString = new StringBuilder();
             this.column = new StringBuilder();
-            this.where = new StringBuilder();
             this.Joinin = new StringBuilder();
             this.orderby = new StringBuilder();
             this.limit = new StringBuilder();
@@ -56,7 +55,6 @@ namespace Helper
         {
             this.queryString = new StringBuilder();
             this.column = new StringBuilder();
-            this.where = new StringBuilder();
             this.Joinin = new StringBuilder();
             this.orderby = new StringBuilder();
             this.limit = new StringBuilder();
@@ -69,11 +67,11 @@ namespace Helper
 
         public void Join<T>(string col_1, string col_2) where T : class
         {
-            this.Joinin.Append("INNER JOIN");
+            this.Joinin.Append(" INNER JOIN ");
             this.Joinin.Append(typeof(T).Name);
-            this.Joinin.Append("ON");
+            this.Joinin.Append(" ON ");
             this.Joinin.Append(col_1);
-            this.Joinin.Append("=");
+            this.Joinin.Append(" = ");
             this.Joinin.Append(col_2);
 
         }
@@ -317,7 +315,7 @@ namespace Helper
 
             }
             string s = this.queryString.ToString().Substring(0, this.queryString.Length - 1);
-            this.queryString.Clear().Append(s);
+            this.queryString.Clear().Append(s).Append(" ").Append(where);
         }
 
         /// TAO SỬA Ở Đây.

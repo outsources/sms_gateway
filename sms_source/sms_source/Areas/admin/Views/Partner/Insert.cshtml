@@ -1,6 +1,4 @@
-﻿@model sms_source.Areas.admin.Models.partner
-
-<script type="text/javascript">
+﻿<script type="text/javascript">
     $(document).ready(function () {
         $('#isValidate').validate();
     });
@@ -15,7 +13,7 @@
                 <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
             </div>
             <div class="modal-body" style="float: left">
-                <div style="float: left; width: 35%">
+                <div style="float: left; width: 80%;margin:0 auto">
                     <fieldset>
                         <legend>Thêm người dùng</legend>
                         <div class="sub">
@@ -89,58 +87,7 @@
                             </div>
                         </div>
                     </fieldset>
-                </div>
-                <div style="float: right; width: 62%">
-                    <fieldset>
-                        <legend>Thông tin đăng kí dịch vụ</legend>
-                        <div class="sub">
-                            <div class="editor-label">
-                                <label>Đầu số:</label>
-                            </div>
-                            <div class="editor-field">
-                                <select name="cbCategoryID" id="cbCategory">
-                                    <option value="0">Lựa chọn đầu số</option>
-                                    <option value="1" selected="selected">7047</option>
-                                    <option value="2">7147</option>
-                                    <option value="3">7247</option>
-                                    <option value="4">7347</option>
-                                    <option value="5">7447</option>
-                                    <option value="6">7547</option>
-                                    <option value="7">7647</option>
-                                    <option value="8">7747</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="sub">
-                            <div class="editor-label">
-                                <label>Dịch vụ:</label>
-                            </div>
-                            <div class="editor-field">
-                                <select name="cbCategoryID" id="cbCategory">
-                                    <option value="0">Lựa chọn dịch vụ</option>
-                                    <option value="1" selected="selected">Kết quả xổ số</option>
-                                    <option value="2">Game đánh bài</option>
-                                    <option value="3">Nhạc chờ điện thoại</option>
-                                    <option value="4">Bóng đá</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="sub">
-                            <div class="editor-label">
-                                <label>Mã dịch vụ:</label>
-                            </div>
-                            <div class="editor-field">
-                                <select size="4" multiple="multiple" style="height: 153px; width: 400px;">
-                                    <option>KQ</option>
-                                    <option>KQXS</option>
-                                    <option>XOSO</option>
-                                    <option>XSMB</option>
-                                </select>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
+                </div>   
             </div>
             <div class="modal-footer" style="float: left;width: 95.5%;">
                 <input type="submit" class="button add" value="Thêm mới" />
