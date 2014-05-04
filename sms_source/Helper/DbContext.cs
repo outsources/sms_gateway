@@ -312,6 +312,7 @@ namespace Helper
             this.queryString.Clear().Append(s);
         }
 
+        /// TAO SỬA Ở Đây.
         public void Delete()
         {
             string table = type.Name;
