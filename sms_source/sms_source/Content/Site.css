@@ -223,10 +223,10 @@ input[type="text"],
 input[type="password"]
 {
     border: 1px solid #ccc;
-    padding: 4px;
+    padding: 6px;
     font-size: 1em;
     color: #444;
-    width: 200px;
+    width: 250px;
 }
 
 select
@@ -234,7 +234,9 @@ select
     border: 1px solid #CCCCCC;
     color: #444444;
     margin-top: 3px;
-    padding: 2px;
+    padding: 4px;
+    width: 265px;
+    border-radius:4px;
 }
 
 input[type="submit"]
@@ -276,6 +278,8 @@ table
 .error
 {
     color: Red;
+    padding-left:20px;
+    font-style:italic;
 }
 
 nav, #menucontainer

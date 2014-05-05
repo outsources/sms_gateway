@@ -14,11 +14,9 @@ namespace sms_source.Areas.admin.Models
         public int phone_number { get; set; }
         public int tel { get; set; }
 
-        public string address { get; set; }
         public string info { get; set; }
         public DateTime create_date { get; set; }
         public DateTime update_date { get; set; }
-        public bool active { get; set; }
         
     }
 }

@@ -1,0 +1,109 @@
+﻿@using sms_source.Areas.admin.Models
+@model service_numbers
+@{
+    var lstTelco = (List<telcos>)ViewBag.lstTelcos;
+}
+@using (Ajax.BeginForm("Update", "ServiceNumber", new { countTelco = lstTelco.Count }, new AjaxOptions() { UpdateTargetId = "result" })){
+<div id="result"></div>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+                <fieldset>
+                    <legend>Sửa thông tin đầu số tổng đài</legend>
+                    <div style="float: left; width: 45%;">
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label for="txtTitle">Đầu số:</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.service, new
+                           {
+                               @required = "required",
+                               @class = "text ui-widget-content ui-corner-all",
+                               @style = "width: 200px"
+                           })
+                            </div>
+                        </div>
+
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label for="txtTitle">Trạng thái:</label>
+                            </div>
+                            <div class="editor-field">
+                                <select name="cbStatus">
+                                    @{
+                                        if (Model.active)
+                                        {
+                                        <option value="true">Đang hoạt động</option>
+                                        <option value="false">Ngừng hoạt động</option>
+                                        }
+                                        else
+                                        {                                            
+                                        <option value="false">Ngừng hoạt động</option>
+                                        <option value="true">Đang hoạt động</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label for="txtTitle">Ngày khởi tạo:</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.DisplayTextFor(model => model.create_date)
+                                @Html.HiddenFor(model => model.create_date)
+                            </div>
+                        </div>
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label for="txtTitle">Lần cập nhật cuối:</label>
+                            </div>
+                            <div class="editor-field">
+                                @*<input type="date" readonly="readonly" name="txtTitle" id="txtUpdateDate" class="text ui-widget-content ui-corner-all">*@
+                                @Html.DisplayTextFor(model => model.update_date)
+                                @Html.HiddenFor(model => model.update_date)
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="float: left; width: 55%;">
+                        <fieldset>
+                            <legend>Khai báo giá cước của nhà mạng (vnđ)</legend>
+                            @for (int i = 0; i < lstTelco.Count; i++)
+                            {
+                                var dbServiceRate = new Helper.DbContext<service_rates>();
+                                dbServiceRate.Select();
+                                dbServiceRate.Where("telcos_id", lstTelco[i].id.ToString());
+                                dbServiceRate.Where("service_id", Model.id.ToString());
+                                var objRate = dbServiceRate.FetchObject()[0];
+                                              
+                                <input type="hidden" name="hdTelcoID@(i)" value="@lstTelco[i].id" />
+                                <div class="sub">
+                                    <div class="editor-label">
+                                        <label for="txtTitle">@lstTelco[i].telcos_name:</label>
+                                    </div>
+                                    <div class="editor-field">
+                                        <input type="number" name="txtPrice@(i)" value="@objRate.price" class="text ui-widget-content ui-corner-all">
+                                    </div>
+                                </div>
+                            }
+                        </fieldset>
+                    </div>
+                </fieldset>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="button save">Cập nhật</button>
+            <button type="button" class="button" data-dismiss="modal">Hủy</button>
+        </div>
+    </div>
+</div>
+}

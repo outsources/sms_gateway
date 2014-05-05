@@ -48,7 +48,7 @@ namespace Helper
             this.orderby = new StringBuilder();
             this.limit = new StringBuilder();
 
-            this.queryString.Append("SELECT {0} , ROW_NUMBER() OVER (ORDER BY id) AS [indexs]  FROM {1} {2} WHERE 1=1 {3}");
+            this.queryString.Append("SELECT {0} , ROW_NUMBER() OVER (ORDER BY "+type.Name+".id) AS [indexs]  FROM {1} {2} WHERE 1=1 {3}");
         }
 
         public void Select(string[] column)
@@ -62,11 +62,13 @@ namespace Helper
             {
                 this.column.Append(item + ",");
             }
-            queryString.Append("SELECT {0} ROW_NUMBER() OVER (ORDER BY id) AS [indexs]  FROM {1} {2} WHERE 1=1 {3}");
+            queryString.Append("SELECT {0} ROW_NUMBER() OVER (ORDER BY " + type.Name + ".id) AS [indexs]  FROM {1} {2} WHERE 1=1 {3}");
         }
 
         public void Join<T>(string col_1, string col_2) where T : class
         {
+            if (this.Joinin == null)
+                this.Joinin = new StringBuilder();
             this.Joinin.Append(" INNER JOIN ");
             this.Joinin.Append(typeof(T).Name);
             this.Joinin.Append(" ON ");
@@ -125,21 +127,21 @@ namespace Helper
 
         public void OrderBy(string col, string by)
         {
-            this.orderby.Append(" OR DER BY")
-                        .Append(col).Append(by);
+            this.orderby.Append(" ORDER BY ")
+                        .Append(col).Append(" ").Append(by);
         }
 
         public void OrderBy(string col)
         {
             if (col.ToLower().Equals("desc"))
-                this.orderby.Append(" OR DER BY id DESC");
+                this.orderby.Append(" ORDER BY id DESC");
             else
                 this.orderby.Append(" ORDER BY " + col + " ASC ");
         }
 
         public void OrderBy()
         {
-            this.orderby.Append(" OR DER BY id");
+            this.orderby.Append(" ORDER BY id");
         }
 
         public void take(int page)

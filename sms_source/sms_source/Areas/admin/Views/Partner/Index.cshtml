@@ -1,10 +1,12 @@
-﻿@{
+﻿@{    
     ViewBag.Title = "Index";
     Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
 }
 
 <h2>Quản lý tài khoản</h2>
 <div>
+    @using (Ajax.BeginForm("ajaxLoad", "Partner", new AjaxOptions() { UpdateTargetId = "ajaxLoad" }, new { @id = "isValidate" }))
+    {
     <fieldset>
         <legend>Tiêu chí tìm kiếm</legend>
         <div style="width: 35%; float: left">
@@ -57,38 +59,58 @@
             <input type="submit" class="button" value="Tìm kiếm" />
         </div>
     </fieldset>
+    }
 </div>
 
 <div style="float: left; width: 100%;">
-    <fieldset>
-        <legend>Danh sách tài khoản</legend>
-        <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
-            <tr class="header">
-                <th scope="col">STT</th>
-                <th scope="col">Tên đăng nhập</th>
-                <th scope="col">Email</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Ngày tạo</th>
-                <th scope="col">Lần đăng nhập cuối</th>
-                <th scope="col">&nbsp;</th>
-            </tr>
+    <div id="ajaxLoad">
+        @using System.Data
+@{
+    DataTable dt = ViewBag.data; 
+}
+
+<fieldset>
+    <legend>Danh sách tài khoản</legend>
+    <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
+        <tr class="header">
+            <th scope="col">STT</th>
+            <th scope="col">Tên Công ty/Cá nhân</th>
+            <th scope="col">Email</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Ngày tạo</th>
+            <th scope="col">Lần đăng nhập cuối</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        @{
+            
+            int i = 1;
+            foreach (DataRow item in dt.Rows)
+            {
+                string active = "Đang hoạt động";
+                if (bool.Parse(item["active"].ToString()) == false){
+                    active = "Ngừng hoạt động";
+                }
             <tr>
-                <td>1 </td>
-                <td>partner</td>
-                <td>partner@gmail.com </td>
-                <td>Đang hoạt động</td>
-                <td>08/03/2012 16:41</td>
-                <td>24/04/2014 22:24</td>
+                <td>@i </td>
+                <td>@item["provider_name"]</td>
+                <td>@item["email"]</td>
+                <td>@active</td>
+                <td>@item["create_date"]</td>
+                <td>@item["update_date"]</td>
                 <td>
                     <a style="width: 60px" title="Sửa" class="table-icon edit"
-                       href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                        href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
                     <a class="table-icon delete" href="javascript:;"></a>
                     <a class="unblock table-icon" href="#"></a>
                 </td>
             </tr>
-            
-        </table>
-    </fieldset>
+            }
+        }
+    </table>
+</fieldset>
+
+    </div>
+    
 
     <div style="float: left; width: 100%;">        
         <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>

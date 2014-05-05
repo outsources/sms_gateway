@@ -39,9 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="core">
-      <HintPath>..\..\..\..\..\Library\ASP net\test\core\bin\Debug\core.dll</HintPath>
+    <Reference Include="Helper">
+      <HintPath>..\Helper\obj\Debug\Helper.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -62,9 +63,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -76,9 +74,6 @@
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.3.0.20105.1\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Providers">
-      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -208,12 +203,17 @@
     <Content Include="Areas\admin\Views\Dashboard\About.cshtml" />
     <Content Include="Areas\admin\Views\Partner\Index.cshtml" />
     <Content Include="Areas\admin\Views\Partner\Insert.cshtml" />
-    <Content Include="Areas\admin\Views\ServiceNumber\Update.cshtml" />
-    <Content Include="Areas\admin\Views\Sms\SmsReceive.cshtml" />
-    <Content Include="Areas\admin\Views\Sms\SmsReceiveSearch.cshtml" />
+    <Content Include="Areas\admin\Views\Partner\ajaxLoad.cshtml" />
+    <Content Include="Areas\admin\Views\CommandCode\Index.cshtml" />
+    <Content Include="Areas\admin\Views\CommandCode\Insert.cshtml" />
+    <Content Include="Areas\admin\Views\ServiceNumber\Update.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Areas\admin\Views\Sms\SmsError.cshtml" />
     <Content Include="Areas\admin\Views\Sms\SmsErrorSearch.cshtml" />
     <Content Include="Areas\admin\Views\Sms\SmsPending.cshtml" />
+    <Content Include="Areas\admin\Views\Sms\SmsReceive.cshtml" />
+    <Content Include="Areas\admin\Views\Sms\SmsReceiveSearch.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -246,12 +246,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Helper\Helper.csproj">
-      <Project>{cd4565d9-33e6-4271-83e0-8618de349a79}</Project>
-      <Name>Helper</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
