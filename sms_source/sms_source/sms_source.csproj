@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+    <Compile Include="Areas\admin\Controllers\APIController.cs" />
     <Compile Include="Areas\admin\Controllers\CommandCodeController.cs" />
     <Compile Include="Areas\admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\admin\Controllers\PartnerController.cs" />
