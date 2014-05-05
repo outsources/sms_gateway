@@ -1,6 +1,6 @@
 ﻿@model sms_source.Areas.admin.Models.telcos
 @*Form Thêm*@
-@Ajax.BeginForm("Update", "Telcos", new AjaxOptions() { UpdateTargetId = "result" }){
+@using (Ajax.BeginForm("Update", "Telcos", new AjaxOptions() { UpdateTargetId = "result" })){
 <div id="result"></div>
 <div class="modal-dialog">
     <div class="modal-content">

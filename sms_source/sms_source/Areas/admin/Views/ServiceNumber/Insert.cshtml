@@ -2,7 +2,7 @@
 @{
     var lstTelco = (List<sms_source.Areas.admin.Models.telcos>)ViewBag.lstTelcos;
 }
-@Ajax.BeginForm("Insert", "ServiceNumber",new{countTelco = lstTelco.Count} ,new AjaxOptions() { UpdateTargetId = "result" }){
+@using (Ajax.BeginForm("Insert", "ServiceNumber",new{countTelco = lstTelco.Count} ,new AjaxOptions() { UpdateTargetId = "result" })){
 <div id="result"></div>
 <div class="modal-dialog">
     <div class="modal-content">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="float: left; height: 180px; overflow: scroll; width: 55%;">
+                    <div style="float: left; width: 55%;">
                         <fieldset>
                             <legend>Khai báo giá cước của nhà mạng (vnđ)</legend>
                             @for (int i = 0; i < lstTelco.Count; i++ )

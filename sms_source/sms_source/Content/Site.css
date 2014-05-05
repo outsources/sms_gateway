@@ -3,7 +3,8 @@ The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
-body {
+body
+{
     background-color: #5c87b2;
     font-size: .85em;
     font-family: arial;
@@ -12,25 +13,30 @@ body {
     color: #696969;
 }
 
-a:link {
+a:link
+{
     color: #034af3;
     text-decoration: underline;
 }
 
-a:visited {
+a:visited
+{
     color: #505abc;
 }
 
-a:hover {
+a:hover
+{
     color: #1d60ff;
     text-decoration: none;
 }
 
-a:active {
+a:active
+{
     color: #12eb87;
 }
 
-p, ul {
+p, ul
+{
     margin-bottom: 20px;
     line-height: 1.6em;
 }
@@ -38,36 +44,43 @@ p, ul {
 header,
 footer,
 nav,
-section {
+section
+{
     display: block;
 }
 
 /* HEADINGS   
 ----------------------------------------------------------*/
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6
+{
     font-size: 1.5em;
     color: #000;
 }
 
-h1 {
+h1
+{
     font-size: 2em;
     padding-bottom: 0;
     margin-bottom: 0;
 }
 
-h2 {
+h2
+{
     padding: 0 0 10px 0;
 }
 
-h3 {
+h3
+{
     font-size: 1.2em;
 }
 
-h4 {
+h4
+{
     font-size: 1.1em;
 }
 
-h5, h6 {
+h5, h6
+{
     font-size: 1em;
 }
 
@@ -76,22 +89,24 @@ h5, h6 {
 
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
-.page {
+.page
+{
+    margin: 0 auto;
     width: 90%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-header, #header {
+header, #header
+{
     color: #000000;
     float: left;
     margin-bottom: 0;
     padding: 0;
     position: relative;
-    width: 1230px;
+    width: 100%;
 }
 
-    header h1, #header h1 {
+    header h1, #header h1
+    {
         font-weight: bold;
         padding: 5px 0;
         margin: 0;
@@ -102,15 +117,17 @@ header, #header {
         text-shadow: 1px 1px 2px #111;
     }
 
-#main {
+#main
+{
     background-color: #FFFFFF;
     border-radius: 4px 0 0;
     float: left;
-    padding: 20px 30px 10px;
-    width: 1170px;
+    padding: 20px 2% 10px;
+    width: 96%;
 }
 
-footer, #footer {
+footer, #footer
+{
     background-color: #FFFFFF;
     border-radius: 0 0 4px 4px;
     color: #999999;
@@ -120,12 +137,13 @@ footer, #footer {
     margin: 0 0 30px;
     padding: 10px 0;
     text-align: center;
-    width: 1230px;
+    width: 100%;
 }
 
 /* TAB MENU   
 ----------------------------------------------------------*/
-ul#menu {
+ul#menu
+{
     border-bottom: 2px solid #5C87B2;
     float: right;
     margin: 0;
@@ -135,13 +153,15 @@ ul#menu {
     width: auto;
 }
 
-    ul#menu li {
+    ul#menu li
+    {
         display: inline;
         list-style: none;
         margin-right: 5px;
     }
 
-        ul#menu li#greeting {
+        ul#menu li#greeting
+        {
             padding: 10px 20px;
             font-weight: bold;
             text-decoration: none;
@@ -149,7 +169,8 @@ ul#menu {
             color: #fff;
         }
 
-        ul#menu li a {
+        ul#menu li a
+        {
             background-color: #E8EEF4;
             border-radius: 4px 4px 0 0;
             color: #034AF3;
@@ -159,17 +180,20 @@ ul#menu {
             text-decoration: none;
         }
 
-            ul#menu li a:hover {
+            ul#menu li a:hover
+            {
                 background-color: #fff;
                 text-decoration: none;
             }
 
-            ul#menu li a:active {
+            ul#menu li a:active
+            {
                 background-color: #a6e2a6;
                 text-decoration: none;
             }
 
-        ul#menu li.selected a {
+        ul#menu li.selected a
+        {
             background-color: #fff;
             color: #000;
         }
@@ -177,23 +201,27 @@ ul#menu {
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
-fieldset {
+fieldset
+{
     border: 1px solid #DDDDDD;
     margin: 0 0 5px;
     padding: 0 1.4em 1.4em;
 }
 
-legend {
+legend
+{
     font-size: 1.2em;
     font-weight: bold;
 }
 
-textarea {
+textarea
+{
     min-height: 75px;
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"]
+{
     border: 1px solid #ccc;
     padding: 4px;
     font-size: 1em;
@@ -201,32 +229,37 @@ input[type="password"] {
     width: 200px;
 }
 
-select {
+select
+{
     border: 1px solid #CCCCCC;
     color: #444444;
     margin-top: 3px;
     padding: 2px;
 }
 
-input[type="submit"] {
+input[type="submit"]
+{
     margin-top: 8px;
 }
 
 /* TABLE
 ----------------------------------------------------------*/
 
-table {
+table
+{
     border: solid 1px #e8eef4;
     border-collapse: collapse;
 }
 
-    table td {
+    table td
+    {
         border: 1px solid #E8EEF4;
         padding: 5px;
         text-align: center;
     }
 
-    table th {
+    table th
+    {
         border: 1px solid #E8EEF4;
         color: #FFFFFF;
         padding: 6px 5px;
@@ -235,27 +268,32 @@ table {
 
 /* MISC  
 ----------------------------------------------------------*/
-.clear {
+.clear
+{
     clear: both;
 }
 
-.error {
+.error
+{
     color: Red;
 }
 
-nav, #menucontainer {
+nav, #menucontainer
+{
     float: left;
     margin-top: 0;
     width: 100%;
 }
 
-div#title {
+div#title
+{
     display: block;
     float: left;
     text-align: left;
 }
 
-#logindisplay {
+#logindisplay
+{
     font-size: 1.1em;
     display: block;
     text-align: right;
@@ -263,88 +301,105 @@ div#title {
     color: White;
 }
 
-    #logindisplay a:link {
+    #logindisplay a:link
+    {
         color: white;
         text-decoration: underline;
     }
 
-    #logindisplay a:visited {
+    #logindisplay a:visited
+    {
         color: white;
         text-decoration: underline;
     }
 
-    #logindisplay a:hover {
+    #logindisplay a:hover
+    {
         color: white;
         text-decoration: none;
     }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
+.field-validation-error
+{
     color: #ff0000;
 }
 
-.field-validation-valid {
+.field-validation-valid
+{
     display: none;
 }
 
-.input-validation-error {
+.input-validation-error
+{
     border: 1px solid #ff0000;
     background-color: #ffeeee;
 }
 
-.validation-summary-errors {
+.validation-summary-errors
+{
     font-weight: bold;
     color: #ff0000;
 }
 
-.validation-summary-valid {
+.validation-summary-valid
+{
     display: none;
 }
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
-.display-label, .editor-label {
+.display-label, .editor-label
+{
     float: left;
     margin: 1em 10px 0 0;
     width: 125px;
 }
 
-#menu li u .display-field, .editor-field {
+#menu li u .display-field, .editor-field
+{
     float: left;
     margin: 0.5em 30px 0 0;
 }
 
-.text-box {
+.text-box
+{
     width: 30em;
 }
 
-    .text-box.multi-line {
+    .text-box.multi-line
+    {
         height: 6.5em;
     }
 
-.tri-state {
+.tri-state
+{
     width: 6em;
 }
 
 /* Custom
 ----------------------------------------------------------*/
 
-#menu li a:hover {
+#menu li a:hover
+{
     background-color: #0CF;
 }
-/*style the main menu*/ #menu {
+/*style the main menu*/ #menu
+{
     margin: 0;
     padding: 0;
 }
 
-    #menu li {
+    #menu li
+    {
         list-style: none;
         float: left;
         font: 12px Arial, Helvetica, sans-serif #111;
     }
 
-        #menu li a:link, #menu li a:visited {
+        #menu li a:link, #menu li a:visited
+        {
             border-right: 1px solid #FFFFFF;
             color: #111111;
             display: block;
@@ -360,7 +415,8 @@ div#title {
 }*/
         /*style the sub menu*/
 
-        #menu li ul {
+        #menu li ul
+        {
             border: 1px solid #d9d9d9;
             float: left;
             margin: 0;
@@ -370,7 +426,8 @@ div#title {
             width: 25%;
         }
 
-            #menu li ul li {
+            #menu li ul li
+            {
                 border-top: 1px solid #d9d9d9;
                 display: inline;
                 float: left;
@@ -378,41 +435,50 @@ div#title {
                 width: 100.35%;
             }
 
-            #menu li ul a {
+            #menu li ul a
+            {
                 border-radius: 0;
             }
 
-.customButton {
+.customButton
+{
     float: left;
 }
 
-.sub {
+.sub
+{
     float: left;
     width: 100%;
 }
 
-.table-icon {
+.table-icon
+{
     margin-right: 5px;
     padding: 1px 8px;
 }
 
-.unblock.table-icon {
+.unblock.table-icon
+{
     background: url("/Content/images/unblock.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
-.block.table-icon {
+.block.table-icon
+{
     background: url("/Content/images/block.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
-.edit.table-icon {
+.edit.table-icon
+{
     background: url("/Content/images/i_edit.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
-.delete.table-icon {
+.delete.table-icon
+{
     background: url("/Content/images/i_delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
-button, .button {
+button, .button
+{
     background: none repeat scroll 0 0 #F3F3F3;
     border: 1px solid #DCDCDC;
     border-radius: 2px;
@@ -427,80 +493,97 @@ button, .button {
     text-shadow: 0 1px 0 #FFFFFF;
 }
 
-.add {
+.add
+{
     background: url("/Content/images/i_add.png") no-repeat scroll 4px center #F3F3F3;
     padding-left: 25px;
 }
 
-.save {
-  background: url("/Content/images/i-save.png") no-repeat scroll 4px center #F3F3F3;
-  padding-left: 25px;
+.save
+{
+    background: url("/Content/images/i-save.png") no-repeat scroll 4px center #F3F3F3;
+    padding-left: 25px;
 }
 
-.even {
+.even
+{
     background-color: #F3F3F3;
 }
 
-.tableList {
+.tableList
+{
     float: left;
     margin-top: 15px;
     width: 100%;
 }
 
-.StaticTelco > li {
+.StaticTelco > li
+{
     float: left;
     width: 250px;
 }
 
-    .StaticTelco > li > span {
+    .StaticTelco > li > span
+    {
         color: red;
     }
 
-.prith {
+.prith
+{
     background: none repeat scroll 0 0 #5C87B2;
     color: #FFFFFF;
 }
 
-.subTitle {
+.subTitle
+{
     background: none repeat scroll 0 0 #AAAAAA;
 }
 
-.tableList .header {
+.tableList .header
+{
     background-color: #5C87B2;
 }
 
-.header:hover {
+.header:hover
+{
     background-color: #5C87B2 !important;
 }
 
-.tableList tbody tr:hover {
+.tableList tbody tr:hover
+{
     background-color: #FFF8CF;
 }
 
-.customBtAdd {
+.customBtAdd
+{
     width: 60px;
 }
 
 
-.fade {
+.fade
+{
     opacity: 0;
     -webkit-transition: opacity .15s linear;
     transition: opacity .15s linear;
 }
 
-    .fade.in {
+    .fade.in
+    {
         opacity: 1;
     }
 
-.collapse {
+.collapse
+{
     display: none;
 }
 
-    .collapse.in {
+    .collapse.in
+    {
         display: block;
     }
 
-.collapsing {
+.collapsing
+{
     position: relative;
     height: 0;
     overflow: hidden;
@@ -508,11 +591,13 @@ button, .button {
     transition: height .35s ease;
 }
 
-.modal-open {
+.modal-open
+{
     overflow: hidden;
 }
 
-.modal {
+.modal
+{
     display: none;
     overflow: auto;
     overflow-y: scroll;
@@ -526,7 +611,8 @@ button, .button {
     outline: 0;
 }
 
-    .modal.fade .modal-dialog {
+    .modal.fade .modal-dialog
+    {
         -webkit-transform: translate(0,-25%);
         -ms-transform: translate(0,-25%);
         transform: translate(0,-25%);
@@ -536,19 +622,22 @@ button, .button {
         transition: transform .3s ease-out;
     }
 
-    .modal.in .modal-dialog {
+    .modal.in .modal-dialog
+    {
         -webkit-transform: translate(0,0);
         -ms-transform: translate(0,0);
         transform: translate(0,0);
     }
 
-.modal-dialog {
+.modal-dialog
+{
     position: relative;
     width: auto;
     margin: 10px;
 }
 
-.modal-content {
+.modal-content
+{
     position: relative;
     background-color: #fff;
     border: 1px solid #999;
@@ -560,7 +649,8 @@ button, .button {
     outline: 0;
 }
 
-.modal-backdrop {
+.modal-backdrop
+{
     position: fixed;
     top: 0;
     right: 0;
@@ -570,79 +660,96 @@ button, .button {
     background-color: #000;
 }
 
-    .modal-backdrop.fade {
+    .modal-backdrop.fade
+    {
         opacity: 0;
         filter: alpha(opacity=0);
     }
 
-    .modal-backdrop.in {
+    .modal-backdrop.in
+    {
         opacity: .5;
         filter: alpha(opacity=50);
     }
 
-.modal-header {
+.modal-header
+{
     padding: 15px;
     border-bottom: 1px solid #e5e5e5;
     min-height: 16.42857143px;
 }
 
-    .modal-header .close {
+    .modal-header .close
+    {
         margin-top: -2px;
     }
 
-.modal-title {
+.modal-title
+{
     margin: 0;
     line-height: 1.42857143;
 }
 
-.modal-body {
+.modal-body
+{
     position: relative;
     padding: 20px;
 }
 
-.modal-footer {
+.modal-footer
+{
     margin-top: 15px;
     padding: 19px 20px 20px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
 }
 
-    .modal-footer .btn + .btn {
+    .modal-footer .btn + .btn
+    {
         margin-left: 5px;
         margin-bottom: 0;
     }
 
-    .modal-footer .btn-group .btn + .btn {
+    .modal-footer .btn-group .btn + .btn
+    {
         margin-left: -1px;
     }
 
-    .modal-footer .btn-block + .btn-block {
+    .modal-footer .btn-block + .btn-block
+    {
         margin-left: 0;
     }
 
-@media (min-width:768px) {
-    .modal-dialog {
+@media (min-width:768px)
+{
+    .modal-dialog
+    {
         margin: 30px auto;
         width: 70%;
     }
 
-    .modal-content {
+    .modal-content
+    {
         -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
         box-shadow: 0 5px 15px rgba(0,0,0,.5);
     }
 
-    .modal-sm {
+    .modal-sm
+    {
         width: 300px;
     }
 }
 
-@media (min-width:992px) {
-    .modal-lg {
+@media (min-width:992px)
+{
+    .modal-lg
+    {
         width: 900px;
     }
 }
 
-.close {
+.close
+{
     float: right;
     font-size: 21px;
     font-weight: 700;
@@ -653,7 +760,8 @@ button, .button {
     filter: alpha(opacity=20);
 }
 
-    .close:hover, .close:focus {
+    .close:hover, .close:focus
+    {
         color: #000;
         text-decoration: none;
         cursor: pointer;
@@ -661,7 +769,8 @@ button, .button {
         filter: alpha(opacity=50);
     }
 
-button.close {
+button.close
+{
     padding: 0;
     cursor: pointer;
     background: 0 0;
@@ -669,13 +778,15 @@ button.close {
     -webkit-appearance: none;
 }
 
-#cboListTelco > li {
+#cboListTelco > li
+{
     float: left;
     list-style: none outside none;
     margin-right: 20px;
 }
 
-.cboList {
+.cboList
+{
     left: -22px;
     margin: 0;
     position: relative;
