@@ -94,11 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
-<<<<<<< HEAD
     <Compile Include="Areas\admin\Controllers\APIController.cs" />
     <Compile Include="Areas\admin\Controllers\CommandCodeController.cs" />
-=======
->>>>>>> 4e1ce573c96e37358555f767a2c5329ba1af77a1
     <Compile Include="Areas\admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\admin\Controllers\PartnerController.cs" />
     <Compile Include="Areas\admin\Controllers\ServiceNumberController.cs" />
