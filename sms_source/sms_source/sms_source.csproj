@@ -214,6 +214,7 @@
     <Content Include="Areas\admin\Views\Sms\SmsPending.cshtml" />
     <Content Include="Areas\admin\Views\Sms\SmsReceive.cshtml" />
     <Content Include="Areas\admin\Views\Sms\SmsReceiveSearch.cshtml" />
+    <Content Include="Areas\admin\Views\Sms\SmsPendingSearch.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
