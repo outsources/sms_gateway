@@ -1,10 +1,12 @@
-﻿@{
+﻿@{    
     ViewBag.Title = "Index";
     Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
 }
 
 <h2>Quản lý tài khoản</h2>
 <div>
+    @using (Ajax.BeginForm("ajaxLoad", "Partner", new AjaxOptions() { UpdateTargetId = "ajaxLoad" }, new { @id = "isValidate" }))
+    {
     <fieldset>
         <legend>Tiêu chí tìm kiếm</legend>
         <div style="width: 35%; float: left">
@@ -57,10 +59,12 @@
             <input type="submit" class="button" value="Tìm kiếm" />
         </div>
     </fieldset>
+    }
 </div>
 
 <div style="float: left; width: 100%;">
-    <fieldset>
+    <div id="ajaxLoad">
+        <fieldset>
         <legend>Danh sách tài khoản</legend>
         <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
             <tr class="header">
@@ -89,6 +93,8 @@
             
         </table>
     </fieldset>
+    </div>
+    
 
     <div style="float: left; width: 100%;">        
         <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>

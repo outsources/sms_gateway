@@ -22,13 +22,17 @@ namespace sms_source.Areas.admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Insert(partner objPartner,account acc)
+        public ActionResult ajaxLoad()
         {
-            if (ModelState.IsValid) {
-                return Content(objPartner.email,acc.username);
-            }
-            return Content("");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Insert(partner objPartner)
+        {
+
+            return RedirectToAction("ajaxLoad", "partner");
             
         }
 
