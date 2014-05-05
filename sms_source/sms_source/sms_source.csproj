@@ -94,11 +94,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+<<<<<<< HEAD
     <Compile Include="Areas\admin\Controllers\APIController.cs" />
     <Compile Include="Areas\admin\Controllers\CommandCodeController.cs" />
+=======
+>>>>>>> 4e1ce573c96e37358555f767a2c5329ba1af77a1
     <Compile Include="Areas\admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\admin\Controllers\PartnerController.cs" />
     <Compile Include="Areas\admin\Controllers\ServiceNumberController.cs" />
+    <Compile Include="Areas\admin\Controllers\SmsController.cs" />
     <Compile Include="Areas\admin\Controllers\TelcosController.cs" />
     <Compile Include="Areas\admin\Models\account.cs" />
     <Compile Include="Areas\admin\Models\cmd_telco_active.cs" />
@@ -207,6 +211,14 @@
     <Content Include="Areas\admin\Views\Partner\ajaxLoad.cshtml" />
     <Content Include="Areas\admin\Views\CommandCode\Index.cshtml" />
     <Content Include="Areas\admin\Views\CommandCode\Insert.cshtml" />
+    <Content Include="Areas\admin\Views\ServiceNumber\Update.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\admin\Views\Sms\SmsError.cshtml" />
+    <Content Include="Areas\admin\Views\Sms\SmsErrorSearch.cshtml" />
+    <Content Include="Areas\admin\Views\Sms\SmsPending.cshtml" />
+    <Content Include="Areas\admin\Views\Sms\SmsReceive.cshtml" />
+    <Content Include="Areas\admin\Views\Sms\SmsReceiveSearch.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

@@ -52,9 +52,9 @@
                                      
                     <li><a href="javascript:;">Tin nhắn</a>
                         <ul style="z-index:100">
-                            <li>@Html.ActionLink("Tin nhắn đến", "SmsSend", "Home")</li>
-                            <li>@Html.ActionLink("Tin nhắn chờ", "SmsReceive", "Home")</li>
-                            <li>@Html.ActionLink("Tin nhắn lỗi", "SmsReceive", "Home")</li>
+                            <li>@Html.ActionLink("Tin nhắn đến", "SmsReceive", "Sms")</li>
+                            <li>@Html.ActionLink("Tin nhắn chờ", "SmsPending", "Sms")</li>
+                            <li>@Html.ActionLink("Tin nhắn lỗi", "SmsError", "Sms")</li>
                             <li>@Html.ActionLink("Đối soát MO/MT", "DoiSoatMOMT", "Home")</li>
                         </ul>
                     </li>
