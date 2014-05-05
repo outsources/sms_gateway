@@ -1,0 +1,43 @@
+﻿@{
+    var dt = ViewBag.data; 
+}
+
+<fieldset>
+    <legend>Danh sách tài khoản</legend>
+    <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
+        <tr class="header">
+            <th scope="col">STT</th>
+            <th scope="col">Tên Công ty/Cá nhân</th>
+            <th scope="col">Email</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Ngày tạo</th>
+            <th scope="col">Lần đăng nhập cuối</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        @{
+            
+            int i = 1;
+            foreach (var item in dt.Rows)
+            {
+                string active = "Đang hoạt động";
+                if (bool.Parse(item["active"].ToString()) == false){
+                    active = "Ngừng hoạt động";
+                }
+            <tr>
+                <td>@i </td>
+                <td>@item["provider_name"]</td>
+                <td>@item["email"]</td>
+                <td>@active</td>
+                <td>@item["create_date"]</td>
+                <td>@item["update_date"]</td>
+                <td>
+                    <a style="width: 60px" title="Sửa" class="table-icon edit"
+                        href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                    <a class="table-icon delete" href="javascript:;"></a>
+                    <a class="unblock table-icon" href="#"></a>
+                </td>
+            </tr>
+            }
+        }
+    </table>
+</fieldset>
