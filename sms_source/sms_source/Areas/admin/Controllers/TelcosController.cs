@@ -13,11 +13,18 @@ namespace sms_source.Areas.admin.Controllers
         //
         // GET: /admin/Telcos/
         readonly DbContext<telcos> _dbContext = new DbContext<telcos>(new string[] { "telcos_name", "info" });
+        readonly DbContext<service_rates> _dbContextServiceRate = new DbContext<service_rates>();
 
         public ActionResult Index(int? delID)
         {         
             if (delID != null)
             {
+                //Delete Bảng giữa
+                _dbContextServiceRate.Where("telcos_id", delID.Value.ToString());
+                _dbContextServiceRate.Delete();
+                _dbContextServiceRate.Save();
+
+                //Delete Bảng chính
                 _dbContext.Where("id", delID.Value.ToString());
                 _dbContext.Delete();
                 _dbContext.Save();
@@ -34,7 +41,7 @@ namespace sms_source.Areas.admin.Controllers
 
         [HttpPost]
         public ActionResult Insert(telcos model)
-        {
+            {
             if (ModelState.IsValid)
             {
                 //Thực hiện Insert
@@ -42,15 +49,14 @@ namespace sms_source.Areas.admin.Controllers
                 {
                     telcos_name = model.telcos_name,
                     info = model.info,
-                    create_date = DateTime.Parse(DateTime.Now.ToLongDateString()),
-                    update_date = DateTime.Parse(DateTime.Now.ToLongDateString()),
+                    create_date = DateTime.Now,
+                    update_date = DateTime.Now,
                 };
 
                 _dbContext.Create(modelInsert);
                 _dbContext.Save();
                
-
-                return Content("NGON");
+                return Content("OK");
             }
 
             return View(model);
@@ -75,16 +81,16 @@ namespace sms_source.Areas.admin.Controllers
             if (ModelState.IsValid)
             {
                 //Thực hiện Update
+                _dbContext.Where("id", model.id.ToString());
                 _dbContext.Update(new telcos
                     {
                         telcos_name = model.telcos_name, 
                         info = model.info, 
                         create_date = model.create_date,
                         update_date = DateTime.Parse(DateTime.Now.ToLongDateString())
-                    });
-                _dbContext.Where("id", model.id.ToString());
+                    });                
                 _dbContext.Save();
-                return RedirectToAction("Index");
+                return Content("OK");
             }
 
             return View(model);
