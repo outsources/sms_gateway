@@ -87,7 +87,7 @@ namespace sms_source.Areas.admin.Controllers
                         telcos_name = model.telcos_name, 
                         info = model.info, 
                         create_date = model.create_date,
-                        update_date = DateTime.Parse(DateTime.Now.ToLongDateString())
+                        update_date = DateTime.Now
                     });                
                 _dbContext.Save();
                 return Content("OK");

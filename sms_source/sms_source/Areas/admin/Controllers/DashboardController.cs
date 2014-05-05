@@ -16,7 +16,8 @@ namespace sms_source.Areas.admin.Controllers
             var db = new DbContext<telcos>();
             db.Where("id", "10");
             db.Delete();
-            Response.Write(db.test());
+            var date = DateTime.Now;
+            Response.Write(date);
             return View();
         }
     }

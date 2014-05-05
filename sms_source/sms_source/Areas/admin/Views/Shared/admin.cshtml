@@ -48,12 +48,7 @@
                 <ul id="menu">                    
                     <li>@Html.ActionLink("Tổng quan", "Index", "Dashboard")</li>
                     <li>@Html.ActionLink("Đầu số tổng đài", "Index", "ServiceNumber")</li>                    
-                    <li><a href="javascript:;">Cú pháp</a>
-                        <ul style="z-index:100">
-                            <li>@Html.ActionLink("Mã cú pháp", "CommandCode", "Home")</li>   
-                            <li>@Html.ActionLink("Tiếp đầu ngữ", "SubCommandCode", "Home")</li>   
-                        </ul>
-                    </li>
+                    <li>@Html.ActionLink("Mã cú pháp", "Index", "commandcode")</li>
                                      
                     <li><a href="javascript:;">Tin nhắn</a>
                         <ul style="z-index:100">
@@ -68,10 +63,8 @@
                     <li style="margin-right: 0px;"><a href="javascript:;">Quản lý hệ thống</a>
                         <ul>
                             <li>@Html.ActionLink("Quản lý nhà mạng", "Index", "Telcos")</li>                            
-                            <li>@Html.ActionLink("Quản lý đối tác", "Index", "Partner")</li>
-                            <li>@Html.ActionLink("Quản lý dịch vụ", "UserManagement", "Home")</li>
-                            <li>@Html.ActionLink("Thông tin khác", "QuanLyPhu", "Home")</li>
-                            <li>@Html.ActionLink("Menu chức năng", "CategoryManagement", "Home")</li>
+                            <li>@Html.ActionLink("Quản lý đối tác", "Index", "partner")</li>
+                            <li>@Html.ActionLink("Quản lý Event", "UserManagement", "Home")</li>                            
                         </ul>
                     </li>
                 </ul>

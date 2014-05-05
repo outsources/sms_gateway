@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+    <Compile Include="Areas\admin\Controllers\CommandCodeController.cs" />
     <Compile Include="Areas\admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\admin\Controllers\PartnerController.cs" />
     <Compile Include="Areas\admin\Controllers\ServiceNumberController.cs" />
@@ -202,10 +203,9 @@
     <Content Include="Areas\admin\Views\Dashboard\About.cshtml" />
     <Content Include="Areas\admin\Views\Partner\Index.cshtml" />
     <Content Include="Areas\admin\Views\Partner\Insert.cshtml" />
-    <Fakes Include="Fakes\core.fakes" />
-    <Fakes Include="Fakes\EntityFramework.fakes" />
-    <Fakes Include="Fakes\System.Web.Providers.fakes" />
     <Content Include="Areas\admin\Views\Partner\ajaxLoad.cshtml" />
+    <Content Include="Areas\admin\Views\CommandCode\Index.cshtml" />
+    <Content Include="Areas\admin\Views\CommandCode\Insert.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
