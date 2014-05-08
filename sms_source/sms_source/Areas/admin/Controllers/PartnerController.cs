@@ -72,8 +72,21 @@ namespace sms_source.Areas.admin.Controllers
 
             }
 
-            return RedirectToAction("ajaxLoad", "partner");
-            
+            return RedirectToAction("ajaxLoad", "partner");            
+        }
+
+        public ActionResult Update(string id)
+        {
+            _dbPartner.Select();
+            _dbPartner.Where("id", id);
+            var obj =_dbPartner.FetchObject()[0];
+            ViewBag.partner = obj;
+
+            _dbAccount.Select();
+            _dbAccount.Where("id", obj.account_id.ToString());
+            ViewBag.account = _dbAccount.FetchObject()[0];
+
+            return View();
         }
 
     }

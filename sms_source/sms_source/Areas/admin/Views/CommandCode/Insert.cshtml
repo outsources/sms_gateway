@@ -1,4 +1,10 @@
-﻿<div class="modal-dialog">
+﻿@{
+    var objService = ViewBag.service;
+    var objPartner = ViewBag.partner;    
+    
+}
+
+<div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -15,14 +21,10 @@
                     <div class="editor-field">
                         <select>
                             <option value="0">Chọn</option>
-                            <option value="8" selected="selected">7047</option>
-                            <option value="1">7147</option>
-                            <option value="2">7247</option>
-                            <option value="3">7347</option>
-                            <option value="4">7447</option>
-                            <option value="5">7547</option>
-                            <option value="6">7647</option>
-                            <option value="7">7747</option>
+                            @foreach (var item in objService)
+                            {
+                                <option value="@item.id">@item.service</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -34,6 +36,10 @@
                     <div class="editor-field">
                         <select>
                             <option value="0">Không</option>
+                            @foreach (var item in objPartner)
+                            {
+                                <option value="@item.id">@item.provider_name</option>
+                            }
                             <option value="8">abc xyz</option>
                         </select>
                     </div>

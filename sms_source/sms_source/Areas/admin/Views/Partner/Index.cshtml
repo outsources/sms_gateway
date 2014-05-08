@@ -98,8 +98,19 @@
                 <td>@item["create_date"]</td>
                 <td>@item["update_date"]</td>
                 <td>
-                    <a style="width: 60px" title="Sửa" class="table-icon edit"
-                        href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                    @Ajax.ActionLink(" ", "Update", "Partner",new{id=item["id"]},
+                            new AjaxOptions()
+                            {
+                                UpdateTargetId = "myModal",
+                            },
+                            new{
+                                style = "width: 60px",
+                                title = "Sửa",
+                                data_toggle = "modal",
+                                data_target = "#myModal",
+                                @class = "table-icon edit"
+                            })
+
                     <a class="table-icon delete" href="javascript:;"></a>
                     <a class="unblock table-icon" href="#"></a>
                 </td>

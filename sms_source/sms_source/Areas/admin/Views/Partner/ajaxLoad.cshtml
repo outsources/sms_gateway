@@ -16,9 +16,10 @@
         </tr>
         @{
             
-            int i = 1;
+            int i = 0;
             foreach (var item in dt.Rows)
             {
+                i++;
                 string active = "Đang hoạt động";
                 if (bool.Parse(item["active"].ToString()) == false){
                     active = "Ngừng hoạt động";
