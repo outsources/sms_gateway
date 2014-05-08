@@ -81,14 +81,13 @@ namespace sms_source.Areas.admin.Controllers
         public ActionResult Update(int? id)
         {
             if (id != null)
-            {
-                _dbContext.Select();
-                _dbContext.Where("id", id.Value.ToString());
-                var listServiceNumber = _dbContext.FetchObject();
-
+            {                
                 _dbContextTelcos.Select(new[] { "id", "telcos_name" });
                 ViewBag.lstTelcos = _dbContextTelcos.FetchObject();
 
+                _dbContext.Select();
+                _dbContext.Where("id", id.Value.ToString());
+                var listServiceNumber = _dbContext.FetchObject();
                 return View(listServiceNumber[0]);
             }
 

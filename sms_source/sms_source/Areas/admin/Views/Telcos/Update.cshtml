@@ -1,72 +1,69 @@
 ﻿@model sms_source.Areas.admin.Models.telcos
-@*Form Thêm*@
-@using (Ajax.BeginForm("Update", "Telcos", new AjaxOptions() { UpdateTargetId = "result" })){
-<div id="result"></div>
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
-        </div>
-        <div class="modal-body">
-            <div>
-                <fieldset>
-                    <legend>Sửa nhà mạng</legend>
-                    <div style="float: left">
-                        <div class="sub">
-                            <div class="editor-label">
-                                <label for="txtTitle">Tên nhà mạng:</label>
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.telcos_name, new
-                           {
-                               @required = "required",
-                               @class = "text ui-widget-content ui-corner-all",
-                               @style = "width: 200px"
-                           })
-                            </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#validateFormEdit').validate();
+    });
+</script>
+
+@using (Ajax.BeginForm("Update", "Telcos", new AjaxOptions() { UpdateTargetId = "result" }, new { @id = "validateFormEdit" }))
+{
+    <div id="result"></div>
+    <div class="modal-dialog">
+        <div class="modal-content" style="float: left;">
+            <div class="modal-header" style="float: left; width: 96.5%;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Sửa thông tin nhà mạng</h4>
+            </div>
+            <div class="modal-body" style="float: left">
+                <p style="color: gray; font-style: italic; padding-left: 40px">
+                    Chú ý những phần đánh dấu ( <span style="color: red">*</span> ) sao bắt buộc phải nhập đầy đủ
+                </p>
+                <legend>Thông tin nhà mạng</legend>
+                <div style="width: 90%; margin: 0 auto;">
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Tên nhà mạng:</label>
                         </div>
-                        <div class="sub">
-                            <div class="editor-label">
-                                <label for="txtTitle">Mô tả:</label>
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextAreaFor(model => model.info, new
-                                    {
-                                        @class = "text ui-widget-content ui-corner-all",
-                                        @style = "width: 400px"
-                                    })
-                            </div>
-                        </div>
-                        <div class="sub">
-                            <div class="editor-label">
-                                <label for="txtTitle">Ngày khởi tạo:</label>
-                            </div>
-                            <div class="editor-field">
-                                @Html.DisplayTextFor(model => model.create_date)
-                                @Html.HiddenFor(model => model.create_date)                               
-                            </div>
-                        </div>
-                        <div class="sub">
-                            <div class="editor-label">
-                                <label for="txtTitle">Lần cập nhật cuối:</label>
-                            </div>
-                            <div class="editor-field">
-                                @*<input type="date" readonly="readonly" name="txtTitle" id="txtUpdateDate" class="text ui-widget-content ui-corner-all">*@
-                                @Html.DisplayTextFor(model => model.update_date)
-                                @Html.HiddenFor(model => model.update_date)
-                            </div>
+                        <div class="editor-field">
+                            <input value="@Model.telcos_name" type="text" name="telcos_name" class="required text ui-widget-content ui-corner-all">
+                            <label for="telcos_name" generated="true" class="error"
+                                style="display: inline;">
+                                * Nhập tên nhà mạng</label>
+
                         </div>
                     </div>
-
-                </fieldset>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Mô tả:</label>
+                        </div>
+                        <div class="editor-field">
+                            <textarea name="info" class="text ui-widget-content ui-corner-all" style="width: 400px">@Model.info</textarea>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Ngày khởi tạo:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="hidden" name="create_date" value="@Model.create_date"/>
+                            <label>@Model.create_date</label>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Lần cập nhật cuối:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="hidden" name="update_date" value="@Model.update_date"/>
+                            <label>@Model.update_date</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="button save">Cập nhật</button>
-            <button type="button" class="button" data-dismiss="modal">Hủy</button>
+            <div class="modal-footer" style="float: left; width: 95.5%;">
+                <button type="submit" class="button save">Cập nhật</button>
+                <button type="button" class="button" data-dismiss="modal">Hủy</button>
+            </div>
         </div>
     </div>
-</div>
 }
