@@ -104,6 +104,7 @@
     <Compile Include="Areas\admin\Models\account.cs" />
     <Compile Include="Areas\admin\Models\cmd_telco_active.cs" />
     <Compile Include="Areas\admin\Models\command_code.cs" />
+    <Compile Include="Areas\admin\Models\counter.cs" />
     <Compile Include="Areas\admin\Models\employee.cs" />
     <Compile Include="Areas\admin\Models\events.cs" />
     <Compile Include="Areas\admin\Models\messages.cs" />
@@ -205,7 +206,6 @@
     <Content Include="Areas\admin\Views\Dashboard\About.cshtml" />
     <Content Include="Areas\admin\Views\Partner\Index.cshtml" />
     <Content Include="Areas\admin\Views\Partner\Insert.cshtml" />
-    <Content Include="Areas\admin\Views\Partner\ajaxLoad.cshtml" />
     <Content Include="Areas\admin\Views\CommandCode\Index.cshtml" />
     <Content Include="Areas\admin\Views\CommandCode\Insert.cshtml" />
     <Content Include="Areas\admin\Views\ServiceNumber\Update.cshtml">
@@ -217,6 +217,7 @@
     <Content Include="Areas\admin\Views\Sms\SmsReceive.cshtml" />
     <Content Include="Areas\admin\Views\Sms\SmsReceiveSearch.cshtml" />
     <Content Include="Areas\admin\Views\Sms\SmsPendingSearch.cshtml" />
+    <None Include="Properties\PublishProfiles\SmsGateway.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -266,7 +267,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>1820</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:53250/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

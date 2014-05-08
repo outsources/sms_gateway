@@ -7,8 +7,9 @@ namespace sms_source.Areas.admin.Models
 {
     public class support
     {
-        public int service_id { get; set; }
+        public int id { get; set; }        
         public int sms_send_log_id { get; set; }
+        public int active { get; set; }
         public DateTime create_date { get; set; }
     }
 }

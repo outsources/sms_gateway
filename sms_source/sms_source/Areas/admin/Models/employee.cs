@@ -8,7 +8,7 @@ namespace sms_source.Areas.admin.Models
     public class employee
     {
         public int id { get; set; }
-        public int provider_id { get; set; }
+        public int partner_id { get; set; }
         public int account_id { get; set; }
 
         public string employee_name { get; set; }
