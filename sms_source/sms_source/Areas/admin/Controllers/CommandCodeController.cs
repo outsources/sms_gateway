@@ -16,7 +16,7 @@ namespace sms_source.Areas.admin.Controllers
         DbContext<service_numbers> _dbServiceNumbers = new DbContext<service_numbers>();
         DbContext<partner> _dbPartner = new DbContext<partner>();
         DbContext<events> _dbEvents = new DbContext<events>();
-
+        
         public ActionResult Index()
         {
             return View();
@@ -30,6 +30,9 @@ namespace sms_source.Areas.admin.Controllers
 
             _dbPartner.Select();
             ViewBag.partner = _dbPartner.FetchObject();
+
+            _dbEvents.Select();
+            ViewBag.events = _dbEvents.FetchObject(); 
 
             return View();
         }

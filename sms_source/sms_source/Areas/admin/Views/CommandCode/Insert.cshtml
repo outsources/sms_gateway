@@ -1,87 +1,132 @@
 ﻿@{
     var objService = ViewBag.service;
-    var objPartner = ViewBag.partner;    
+    var objPartner = ViewBag.partner;
+    var objEvents = ViewBag.events;
     
 }
 
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Thêm đầu số tổng đài</h4>
-        </div>
-        <div class="modal-body">
-            <legend>Thông tin Command Code</legend>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#validateForm').validate();
+    });
+</script>
 
-            <div style="width: 90%; margin: 10px auto">
-                <div class="sub">
-                    <div class="editor-label">
-                        <label for="txtTitle">Đầu số:</label>
-                    </div>
-                    <div class="editor-field">
-                        <select>
-                            <option value="0">Chọn</option>
-                            @foreach (var item in objService)
-                            {
-                                <option value="@item.id">@item.service</option>
-                            }
-                        </select>
-                    </div>
-                </div>
+@using (Ajax.BeginForm("Insert", "events",
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "ajaxLoad",
+                            OnSuccess = "$('#myModal').modal('hide')"
+                        },
+                        new { @id = "validateForm" }))
+{
 
-                <div class="sub">
-                    <div class="editor-label">
-                        <label for="txtTitle">Đối tác:</label>
-                    </div>
-                    <div class="editor-field">
-                        <select>
-                            <option value="0">Không</option>
-                            @foreach (var item in objPartner)
-                            {
-                                <option value="@item.id">@item.provider_name</option>
-                            }
-                            <option value="8">abc xyz</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="sub">
-                    <div class="editor-label">
-                        <label for="txtTitle">Sự kiên:</label>
-                    </div>
-                    <div class="editor-field">
-                        <select>
-                            <option value="0">Không</option>
-                            <option value="8">abc xyz</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="sub">
-                    <div class="editor-label">
-                        <label for="txtTitle">Cú Pháp: </label>
-                    </div>
-                    <div class="editor-field">
-                        <input type="text" name="txtTitle" id="txtTitle" class="text ui-widget-content ui-corner-all">
-                    </div>
-                </div>
- 
-                <div class="sub">
-                    <div class="editor-label" style="margin-top:40px">
-                        <label for="txtTitle">Thông tin: </label>
-                    </div>
-                    <div class="editor-field">
-                        <textarea class="text ui-widget-content ui-corner-all" cols="30"></textarea>
-                    </div>
-                </div>
-                <div style="clear: both"></div> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Thêm đầu số tổng đài</h4>
             </div>
 
-            <div style="clear: both"></div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="button add">Thêm mới</button>
-            <button type="button" class="button" data-dismiss="modal">Hủy</button>
+            <p style="color: gray; font-style: italic; padding-left: 40px">
+                Chú ý những phần đánh dấu ( <span style="color: red">*</span> ) sao bắt buộc phải nhập đầy đủ
+            </p>
+
+
+            <div class="modal-body">
+                <legend>Thông tin Command Code</legend>
+                <div style="width: 90%; margin: 10px auto">
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Đầu số:</label>
+                        </div>
+                        <div class="editor-field">
+                            <select>
+                                <option value="">Chọn</option>
+                                @foreach (var item in objService)
+                                {
+                                    <option value="@item.id">@item.service</option>
+                                }
+                            </select>
+                            <label for="event_name" generated="true" class="error" 
+                                    style="display: inline;">* Vui lòng chọn một đầu số </label>                        
+                        </div>
+                    </div>
+
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Đối tác:</label>
+                        </div>
+                        <div class="editor-field">
+                            <select>
+                                <option value="0">Không</option>
+                                @foreach (var item in objPartner)
+                                {
+                                    <option value="@item.id">@item.provider_name</option>
+                                }
+                            </select>
+                            <label for="event_name" generated="true" class="error" 
+                                    style="display: inline;">* Vui lòng chọn Đối tác </label>
+                        </div>
+                    </div>
+
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Sự kiên:</label>
+                        </div>
+                        <div class="editor-field">
+                            <select>
+                                <option value="0">Không</option>
+                                @foreach (var item in objEvents)
+                                {
+                                    <option value="8">@item.event_name</option>
+                                }                                
+                            </select>
+                            <label for="event_name" generated="true" class="error" 
+                                    style="display: inline;color:black"> Bạn có thể lựa chọn một sự kiện cho cmd này </label>
+                        </div>
+                    </div>
+
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Cú Pháp: </label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name="txtTitle" id="txtTitle" class="text ui-widget-content ui-corner-all">
+                             <label for="event_name" generated="true" class="error" 
+                                    style="display: inline;">* Vui lòng nhập cú pháp cho tin nhắn </label>
+                        </div>
+                    </div>
+
+                    <div class="sub" style="position:relative">
+                        <div class="editor-label">
+                            <label for="txtTitle">Sử dụng tiếp đầu ngữ: </label>
+                        </div>
+                        <div class="editor-field">
+                            Có
+                            <input type="radio" name="prefix" value="1" />
+                            Không
+                            <input type="radio" name="prefix" value="0" checked />
+                            <p style="position:absolute;right:0;text-align:left;top:0;width:47%">Bạn có muốn tạo tiếp đầu ngữ cho cú pháp tin nhắn này không ?</p> 
+                        </div>
+                    </div>
+
+                    <div class="sub">
+                        <div class="editor-label" style="margin-top: 40px">
+                            <label for="txtTitle">Thông tin: </label>
+                        </div>
+                        <div class="editor-field">
+                            <textarea class="text ui-widget-content ui-corner-all" cols="30"></textarea>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+
+                <div style="clear: both"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button add">Thêm mới</button>
+                <button type="button" class="button" data-dismiss="modal">Hủy</button>
+            </div>
         </div>
     </div>
-</div>
+}

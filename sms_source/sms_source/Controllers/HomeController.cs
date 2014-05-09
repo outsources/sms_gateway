@@ -17,17 +17,17 @@ namespace sms_source.Controllers
         public ActionResult Login()
         {
 
-            //var json = new HttpCookie("flc_user");
-            //if (json != null)
-            //{
-            //    System.Web.Script.Serialization.JavaScriptSerializer serializer =
-            //        new System.Web.Script.Serialization.JavaScriptSerializer();
-            //    account acc = serializer.Deserialize<account>(json.ToString());
-            //    if (acc.role == 1)
-            //        Response.Redirect("admin-manage/");
-            //    else
-            //        Response.Redirect("partner-manage/");
-            //}
+            var json = Request.Cookies["flc_user"];
+            if (json != null)
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer =
+                    new System.Web.Script.Serialization.JavaScriptSerializer();
+                account acc = serializer.Deserialize<account>(json.Value);
+                if (acc.role == 1)
+                    Response.Redirect("admin-manage/");
+                else
+                    Response.Redirect("partner-manage/");
+            }
             ViewBag.status = new HtmlString("Vui lòng <b>Tài khoản</b> và <b>Mật khẩu</b>..");
             return View();
         }
@@ -43,14 +43,15 @@ namespace sms_source.Controllers
                 List<account> obj = _dbAccount.FetchObject();
                 if(obj.Count ==1){
                     account acc = obj[0];
-                    if (form.Get("remember_me").ToString() == "check")
+                    if (form.Get("remember") == "check")
                     {
                         System.Web.Script.Serialization.JavaScriptSerializer serializer =
                         new System.Web.Script.Serialization.JavaScriptSerializer();
                         var json = serializer.Serialize(acc);
-                        var userCookie = new HttpCookie("flc_user", json);
-                        userCookie.Expires.AddDays(2);
-                        HttpContext.Response.Cookies.Add(userCookie);
+                        HttpCookie cookie = new HttpCookie("flc_user");
+                        cookie.Value = json;
+                        cookie.Expires = DateTime.Now.AddDays(3);
+                        Response.Cookies.Add(cookie);    
                     }
                     if(acc.role == 1)
                         Response.Redirect("admin-manage/");
