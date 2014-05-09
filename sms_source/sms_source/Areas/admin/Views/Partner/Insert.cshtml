@@ -4,7 +4,12 @@
     });
 </script>
 
-@using (Ajax.BeginForm("Insert", "Partner", new AjaxOptions() { UpdateTargetId = "ajaxLoad" }, new { @id = "validateForm" }))
+@using (Ajax.BeginForm("Insert", "Partner", 
+                        new AjaxOptions() { 
+                            UpdateTargetId = "ajaxLoad",
+                            OnSuccess = "$('#myModal').modal('hide')" 
+                        }, 
+                        new { @id = "validateForm" }))
 {
 <div class="modal-dialog">
         <div class="modal-content"  style="float: left;">

@@ -9,7 +9,7 @@ namespace sms_source.Areas.admin.Models
     {
         public int id { get; set; }
         public int account_id { get; set; }
-        public string partner_id { get; set; }
+        public string provider_name { get; set; }
         public string email { get; set; }
         public int phone_number { get; set; }
         public int tel { get; set; }

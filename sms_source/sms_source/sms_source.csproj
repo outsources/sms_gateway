@@ -97,9 +97,11 @@
     <Compile Include="Areas\admin\Controllers\APIController.cs" />
     <Compile Include="Areas\admin\Controllers\CommandCodeController.cs" />
     <Compile Include="Areas\admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\admin\Controllers\EventsController.cs" />
     <Compile Include="Areas\admin\Controllers\PartnerController.cs" />
     <Compile Include="Areas\admin\Controllers\ServiceNumberController.cs" />
     <Compile Include="Areas\admin\Controllers\SmsController.cs" />
+    <Compile Include="Areas\admin\Controllers\SupportController.cs" />
     <Compile Include="Areas\admin\Controllers\TelcosController.cs" />
     <Compile Include="Areas\admin\Models\account.cs" />
     <Compile Include="Areas\admin\Models\cmd_telco_active.cs" />
@@ -114,6 +116,9 @@
     <Compile Include="Areas\admin\Models\sms_send_log.cs" />
     <Compile Include="Areas\admin\Models\support.cs" />
     <Compile Include="Areas\admin\Models\telcos.cs" />
+    <Compile Include="Areas\Partner\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Partner\PartnerAreaRegistration.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -124,6 +129,7 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\block.png" />
     <Content Include="Content\images\i-save.png" />
@@ -218,6 +224,13 @@
     <Content Include="Areas\admin\Views\Sms\SmsReceiveSearch.cshtml" />
     <Content Include="Areas\admin\Views\Sms\SmsPendingSearch.cshtml" />
     <Content Include="Areas\admin\Views\Partner\Update.cshtml" />
+    <Content Include="Areas\admin\Views\Events\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Events\ajaxLoad.cshtml" />
+    <Content Include="Areas\admin\Views\Events\Insert.cshtml" />
+    <Content Include="Areas\admin\Views\Support\Index.cshtml" />
+    <Content Include="Areas\Partner\Views\Web.config" />
+    <Content Include="Areas\Partner\Views\Shared\partner.cshtml" />
+    <Content Include="Areas\Partner\Views\Dashboard\Index.cshtml" />
     <None Include="Properties\PublishProfiles\sms.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -245,9 +258,13 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\Shared\default.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Partner\Models\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

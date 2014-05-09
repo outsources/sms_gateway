@@ -115,13 +115,18 @@ namespace Helper
 
         public void Like(string col, string val, string like)
         {
-            this.where.Append(" AND  ").Append(col).Append("LIKE")
+            if (this.where == null)
+                this.where = new StringBuilder();
+            
+            this.where.Append(" AND  ").Append(col).Append(" LIKE")
                       .Append("'" + like.Replace("{0}", val) + "'");
         }
 
         public void OrLike(string col, string val, string like)
         {
-            this.where.Append(" OR ").Append(col).Append("LIKE")
+            if (this.where == null)
+                this.where = new StringBuilder();
+            this.where.Append(" OR ").Append(col).Append(" LIKE")
                       .Append("'" + like.Replace("{0}", val) + "'");
         }
 
