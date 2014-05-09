@@ -1,0 +1,36 @@
+﻿@{
+    var objEvent = ViewBag.data;
+}
+
+<table class="tableList" cellspacing="0" rules="all" border="1" id="ctphMain_grvCategories">
+    <tr class="header">
+        <td>STT</td>
+        <td>Sự kiện</td>
+        <td>Trạng thái</td>
+        <td>Ngày bắt đầu</td>
+        <td>Ngày kết thúc</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    @{
+        int i=0;
+        foreach (var item in objEvent)
+        {
+            i++;
+        <tr>
+            <td>@(i)</td>
+            <td>@item.event_name</td>
+            <td>Đang hoạt động</td>
+            <td>@item.start_date</td>
+            <td>@item.end_date</td>
+            <td>
+                <a style="width: 60px" title="Sửa" class="table-icon edit"
+                    href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                <a title="Xóa" class="table-icon delete" href="#"></a>
+
+            </td>
+        </tr>
+        }
+    }
+
+</table>

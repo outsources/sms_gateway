@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#support').keyup(function () {
+            var val = $(this).val();
+            if (val.length > 0) {
+                var total = Math.floor(val.length / 160) + 1;
+                $('#tt').text('').text('('+val.length+'/160 ký tự) '+total+' tin')
+            }else
+                $('#tt').text('').text('(0/160 ký tự) 0 tin')
+        });
+    });
+
+</script>
+
+
+<h2>Gửi tin chăm sóc khách hàng</h2>
+
+<div style="float: right; width: 105px;">
+    <a style="width: 80px;" href="javascript:;"
+        data-toggle="modal" data-target="#myModal" class="button">Lịch sử gửi tin</a>
+</div>
+
+<div style="float: left; width: 100%">
+    <fieldset>
+        <legend>Nhập thông tin</legend>
+        <div class="sub" style="height: auto; margin-top: 10px; width: 38%; margin-right: 2%">
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Chọn đầu số:</label>
+                </div>
+                <div class="editor-field">
+                    <select style="width: 206px">
+                        <option value="0">Chọn</option>
+                        <option value="8" selected="selected">7047</option>
+                        <option value="1">7147</option>
+                        <option value="2">7247</option>
+                        <option value="3">7347</option>
+                        <option value="4">7447</option>
+                        <option value="5">7547</option>
+                        <option value="6">7647</option>
+                        <option value="7">7747</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Nội dung tin nhắn</label>
+                </div>
+                <div class="editor-field">
+                    <textarea cols="48" rows="7" id="support"></textarea>
+                    <span id="tt">(0/160 ký tự) 0 tin </span>
+                    <div style="float: right; width: 100px;">
+                        <a style="width: 60px" href="@Url.Action("", "Home")" class="button add">Send</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sub" style="height: auto; margin-top: 10px; width: 60%;">
+
+            <fieldset>
+                <legend>Danh sách nhận tin</legend>
+
+                <div style="float: right; width: 140px; margin-bottom: 10px;">
+                    <a style="width: 60px" href="@Url.Action("", "Home")" class="button add">Thêm số</a>
+                </div>
+                <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
+                    <tr class="header">
+                        <th align="center" scope="col">
+                            <input type="checkbox" /></th>
+                        <th align="center" scope="col">STT</th>
+                        <th align="left" scope="col">SĐT Khách hàng</th>
+
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="checkbox" /></td>
+                        <td align="center">1</td>
+                        <td>841234567189</td>
+
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="checkbox" /></td>
+                        <td align="center">1</td>
+                        <td>841234567189</td>
+
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="checkbox" /></td>
+                        <td align="center">1</td>
+                        <td>841234567189</td>
+
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="checkbox" /></td>
+                        <td align="center">1</td>
+                        <td>841234567189</td>
+
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="checkbox" /></td>
+                        <td align="center">1</td>
+                        <td>841234567189</td>
+
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="checkbox" /></td>
+                        <td align="center">1</td>
+                        <td>841234567189</td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+
+    </fieldset>
+</div>
+
+
+@*Form Thêm*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <legend>Tiêu chí tìm kiếm</legend>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label>Số điện thoại</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label>Đầu số</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label>Thời gian</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" />
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div style="float: left; width: 100%">
+                    <fieldset>
+                        <legend>Danh sách tin nhắn CSKH</legend>
+
+                        <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
+                            <tr class="header">
+                                <th align="center" scope="col">STT</th>
+                                <th align="left" scope="col">Số điện thoại</th>
+                                <th align="left" scope="col">Số tổng đài</th>
+                                <th align="left" scope="col">Nội dung</th>
+                                <th align="left" scope="col">Ngày gửi</th>
+                            </tr>
+                            @for (int i = 0; i < 10; i++)
+                            {
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>841234567189</td>
+                                    <td>7047</td>
+                                    <td>*7047* Day La Noi Dung Tin Nhan Tra Ve Cho Khach Hang: Test! </td>
+                                    <td>24/04/2014 08:00 PM</td>
+                                </tr>
+                            }
+                        </table>
+                    </fieldset>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button" data-dismiss="modal">Đóng</button>
+                <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+            </div>
+        </div>
+    </div>
+</div>

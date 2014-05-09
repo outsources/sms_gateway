@@ -1,0 +1,83 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#validateForm').validate();
+    });
+</script>
+
+@using (Ajax.BeginForm("Insert", "events",
+                        new AjaxOptions() {
+                            UpdateTargetId = "ajaxLoad",
+                            OnSuccess = "$('#myModal').modal('hide')" 
+                        },
+                        new { @id = "validateForm" }))
+{
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+
+                <p style="color:gray;font-style:italic;padding-left:40px">
+                            Chú ý những phần đánh dấu ( <span style="color:red">*</span> ) sao bắt buộc phải nhập đầy đủ</p>
+
+                <legend>Thêm đầu Sự Kiện</legend>
+                <div style="width: 90%;margin:20px auto">
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Tên sự Kiên:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name="event_name" class="required text ui-widget-content ui-corner-all">
+                            <label for="event_name" generated="true" class="error" 
+                                    style="display: inline;">* Nhập vào tên sự kiện VD: ' Miss FLC ' </label>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Ngày bắt đầu:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="datetime-local" name="start_date" class="required" style="padding:4px;width:250px" />
+                            <label for="start_date" generated="true" class="error" 
+                                    style="display: inline;">* Thời gian bắt đầu sự kiện </label>
+                        </div>
+                    </div>
+
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Ngày kết thúc:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="datetime-local" name="end_date" class="required" style="padding:4px;width:250px" />
+                            <label for="end_date" generated="true" class="error" 
+                                    style="display: inline;">* Thời gian kết thúc sự kiện </label>
+                        </div>
+                    </div>
+
+                    <div class="sub" style="position:relative">
+                        <div class="editor-label" style="margin-top:40px">
+                            <label for="txtTitle">Thông tin chung:</label>
+                        </div>
+                        <div class="editor-field">
+                            <textarea cols="40" name="description"></textarea>
+                            <p style="position:absolute;right:0;top:0; width:330px;z-index:100;text-align:left">
+                                Thông tin về sự kiện, thể lệ, phần thưởng ...</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div style="clear:both"></div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" value="Thêm Mới" class="button add" />            
+            <button type="button" class="button" data-dismiss="modal">Hủy</button>
+        </div>
+    </div>
+</div>
+}

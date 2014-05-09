@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+    var objEvent = ViewBag.data;
+}
+
+
+<h2>Quản lý Sự Kiện</h2>
+<div style="float: left; width: 100%">
+    @using (Ajax.BeginForm("ajaxLoad", "events",
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "ajaxLoad"
+                        },
+                        new { @id = "validateForm" }))
+    {
+        <fieldset>
+            <legend>Tiêu chí tìm kiếm</legend>
+            <div style="width: 40%; float: left">
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Tên Sự Kiên:</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="text" name="event_name" />
+                    </div>
+                </div>
+
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Ngày bắt đầu</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="datetime-local" name="start_date" style="padding: 4px; width: 250px">
+                    </div>
+
+                </div>
+            </div>
+            <div style="width: 40%; float: left">
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Trạng thái</label>
+                    </div>
+                    <div class="editor-field">
+                        <select>
+                            <option value="0">Chọn</option>
+                            <option value="8" selected="selected">Chờ xét duyệt</option>
+                            <option value="8">Đang hoạt động</option>
+                            <option value="8">Ngừng hoạt đông</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Ngày kết thúc</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="datetime-local" name="end_date" style="padding: 4px; width: 250px">
+                    </div>
+
+                </div>
+                <div class="sub">
+                    <div style="float: left; width: 100%; padding-left: 320px">
+                        <input type="submit" class="button" value="Tìm kiếm" />
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    }
+</div>
+
+<div style="float: left; width: 100%;">
+    <fieldset>
+        <legend>Danh sách đầu số</legend>
+
+        <div id="ajaxLoad">
+            <table class="tableList" cellspacing="0" rules="all" border="1" id="ctphMain_grvCategories">
+                <tr class="header">
+                    <td>STT</td>
+                    <td>Sự kiện</td>
+                    <td>Trạng thái</td>
+                    <td>Ngày bắt đầu</td>
+                    <td>Ngày kết thúc</td>
+                    <td>&nbsp;</td>
+                </tr>
+
+                @{
+                    int i = 0;
+                    foreach (var item in objEvent)
+                    {
+                        i++;
+                    <tr>
+                        <td>@(i)</td>
+                        <td>@item.event_name</td>
+                        <td>Đang hoạt động</td>
+                        <td>@item.start_date</td>
+                        <td>@item.end_date</td>
+                        <td>
+                            <a style="width: 60px" title="Sửa" class="table-icon edit"
+                                href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                            <a title="Xóa" class="table-icon delete" href="#"></a>
+
+                        </td>
+                    </tr>
+                    }
+                }
+
+            </table>
+
+        </div>
+
+    </fieldset>
+    <div style="float: left; width: 100%;">
+        <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+        @Ajax.ActionLink("Thêm mới", "Insert", "Partner",
+            new AjaxOptions()
+            {
+                UpdateTargetId = "myModal"
+            }, new
+            {
+                style = "width: 60px; float: right",
+                data_toggle = "modal",
+                data_target = "#myModal",
+                @class = "button add"
+            })
+    </div>
+</div>
+
+
+
+@*Form Thêm*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
