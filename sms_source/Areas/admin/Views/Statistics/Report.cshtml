@@ -1,0 +1,55 @@
+﻿@model List<sms_source.Areas.admin.Models.telcos>
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+<h2>Báo cáo doanh thu</h2>
+
+<div>
+    <fieldset>
+        <legend>Tiêu chí thống kê</legend>
+
+        @using (Ajax.BeginForm("SearchReport", "Statistics", 
+            new AjaxOptions() { UpdateTargetId = "result" }))
+        {
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Chọn nhà mạng:</label>
+                </div>
+                <div class="editor-field">
+                    <select name="cbTelco">
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <option value="@item.id">@item.telcos_name</option>
+                            }
+                        }                                                
+                    </select>
+                </div>
+            </div>
+            <div class="sub" style="width: 25%">
+                <div class="editor-label">
+                    <label>Từ ngày:</label>
+                </div>
+                <div class="editor-field">
+                    <input type="datetime-local" name="txtFromDate" value="05/08/2014">
+                </div>
+            </div>            
+            <div class="sub" style="width: 25%">
+                <div class="editor-label">
+                    <label>Từ ngày:</label>
+                </div>
+                <div class="editor-field">
+                    <input type="datetime-local" name="txtToDate" value="05/10/2014">
+                </div>
+            </div>  
+            <div class="customButton">
+                <input type="submit" value="Thống kê" />
+            </div>
+        }
+
+    </fieldset>
+</div>
+<div id="result">
+</div>

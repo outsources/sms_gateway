@@ -1,0 +1,164 @@
+﻿@using System.Data
+@using Helper
+@using sms_source.Areas.admin.Models
+
+@model DataTable
+<div style="float: left; width: 100%; margin-top: 15px;">
+    <fieldset>
+        <legend>Kết quả</legend>
+        <div style="float: right;">
+            <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+        </div>
+        <table class="tableList">
+            <tbody>
+                <tr style="background-color: #5C87B2 !important">
+                    <th rowspan="2" style="width: 55px">Đơn vị</th>
+                    <th colspan="5" style="width: 45%">Số lượng bản tin</th>
+                    <th colspan="4">Doanh thu phân chia (VNĐ)</th>
+                </tr>
+                <tr style="background-color: #5C87B2 !important; color: white">
+                    <td style="width: 40px">MO</td>
+                    <td style="width: 40px">CDR</td>
+                    <td style="width: 40px">MT</td>
+                    <td>Chênh lệch trong định mức</td>
+                    <td>Chênh lệch vượt định mức</td>
+                    <td>Nhà mạng thu khách hàng</td>
+                    <td>Cước trả nhà mạng do quá giới hạn MT</td>
+                    <td>DT Phân chia nhà mạng hưởng</td>
+                    <td>DT Phân chia doanh nghiệp hưởng</td>
+                </tr>
+                @{
+                    var totalMOSub = 0; var totalMTSub = 0; var totalCDRSub = 0; var CLTrongMuc = 0; var CLVuotMuc = 0;
+                    float Total_DTKH = 0;
+                    float Total_Vuot = 0;
+                    float Total_NM = 0;
+                    float Total_DN = 0;
+
+
+                    var count = Model.Rows.Count;
+                    if (count > 0)
+                    {
+                        for (var i = 0; i < count; i++)
+                        {
+                            var dbTelco = new DbContext<telcos>();
+                            var dbService = new DbContext<sms_source.Areas.admin.Models.service_numbers>();
+                            dbService.Select();
+                            dbService.Where("id", Model.Rows[i]["service_number_id"].ToString());
+                            var objService = dbService.FetchObject()[0];
+
+                            var chenhLechSub = int.Parse(Model.Rows[i]["total_mt"].ToString()) - int.Parse(Model.Rows[i]["total_mo"].ToString());
+                            var strServiceName = objService.service.ToString().Substring(1, 1);
+                            var tyLe = new Bussiness_Statistics().PhanTichTyLeGia(strServiceName);
+
+                            var TongVuotChoPhep = int.Parse(Model.Rows[i]["total_mo"].ToString()) * tyLe;
+
+                            var TienLechTrongMuc = 0;
+                            var TienLechNgoaiMuc = 0;
+
+                            if (chenhLechSub > TongVuotChoPhep)
+                            {
+                                TienLechTrongMuc = TongVuotChoPhep * 100;
+                                dbTelco.Select();
+                                dbTelco.Where("id", ViewBag.telcoID.ToString());
+                                var objTelco = dbTelco.FetchObject()[0];
+                                if (objTelco.telcos_name.ToLower().Equals("viettel"))
+                                {
+                                    TienLechNgoaiMuc = (chenhLechSub - TongVuotChoPhep) * 600;
+                                }
+                                if (objTelco.telcos_name.ToLower().Equals("mobifone"))
+                                {
+                                    TienLechNgoaiMuc = (chenhLechSub - TongVuotChoPhep) * 400;
+                                }
+                                if (objTelco.telcos_name.ToLower().Equals("vinaphone"))
+                                {
+                                    TienLechNgoaiMuc = (chenhLechSub - TongVuotChoPhep) * 500;
+                                }
+                                if (objTelco.telcos_name.ToLower().Equals("Vietnamobile"))
+                                {
+                                    TienLechNgoaiMuc = (chenhLechSub - TongVuotChoPhep) * 200;
+                                }
+                            }
+
+                            if ((1 < chenhLechSub) && (chenhLechSub <= TongVuotChoPhep))
+                            {
+                                TienLechTrongMuc = chenhLechSub * 100;
+                            }
+
+
+                            float priceRate = float.Parse(dbTelco.getColumnValue("service_rates", "price", new Dictionary<string, string>
+                                {
+                                    {"service_id", objService.id.ToString()},
+                                    {"telcos_id", ViewBag.telcoID.ToString()},
+
+                                }));
+                            
+                    <tr>
+                        <td>@objService.service</td>
+                        <td>@Model.Rows[i]["total_mo"]</td>
+                        <td>@Model.Rows[i]["total_cdr"]</td>
+                        <td>@Model.Rows[i]["total_mt"]</td>
+
+                        @{
+                            if (chenhLechSub <= TongVuotChoPhep)
+                            {
+                            <td>@chenhLechSub</td>
+                            <td>0</td>
+                            }
+                            else
+                            {
+                            <td>@TongVuotChoPhep</td>
+                            <td>@(chenhLechSub - TongVuotChoPhep)</td>
+                            }
+                        }
+
+                        <td>@(objService.price * int.Parse(Model.Rows[i]["total_cdr"].ToString()))</td>
+                        <td>@(TienLechTrongMuc + TienLechNgoaiMuc)</td>
+                        <td>@((objService.price - priceRate) * int.Parse(Model.Rows[i]["total_cdr"].ToString()))</td>
+                        <td>@(priceRate * int.Parse(Model.Rows[i]["total_cdr"].ToString()))</td>
+                    </tr>
+                    
+                            totalMOSub += int.Parse(Model.Rows[i]["total_mo"].ToString());
+                            totalMTSub += int.Parse(Model.Rows[i]["total_mt"].ToString());
+                            totalCDRSub += int.Parse(Model.Rows[i]["total_cdr"].ToString());
+                            CLTrongMuc += TongVuotChoPhep;
+                            if (chenhLechSub > TongVuotChoPhep)
+                            {
+                                CLVuotMuc += (chenhLechSub - TongVuotChoPhep);
+                            }
+                            Total_DTKH += objService.price * int.Parse(Model.Rows[i]["total_cdr"].ToString());
+                            Total_Vuot += objService.price * (TienLechTrongMuc + TienLechNgoaiMuc);
+                            Total_NM += ((objService.price - priceRate) * int.Parse(Model.Rows[i]["total_cdr"].ToString()));
+                            Total_DN += priceRate * int.Parse(Model.Rows[i]["total_cdr"].ToString());
+                        }
+                    }
+                    else
+                    {
+                    <tr>
+                        <td colspan="10"><b>Không có kết quả.</b></td>
+                    </tr>
+                    }
+                    
+                    
+                }
+
+                <tr class="footer" style="background-color: #AAAAAA !important; font-weight: bold">
+                    <td>Tổng cộng</td>
+                    <td>@totalMOSub</td>
+                    <td>@totalCDRSub</td>
+                    <td>@totalMTSub</td>
+                    <td>@CLTrongMuc</td>
+                    <td>@CLVuotMuc</td>
+                    <td>@Total_DTKH</td>
+                    <td>@Total_Vuot</td>
+                    <td>@Total_NM</td>
+                    <td>@Total_DN</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+
+
+    </fieldset>
+</div>

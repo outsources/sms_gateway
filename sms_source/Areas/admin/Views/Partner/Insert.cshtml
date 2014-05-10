@@ -1,0 +1,136 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $('#validateForm').validate();
+    });
+</script>
+
+@using (Ajax.BeginForm("Insert", "Partner", new AjaxOptions() { UpdateTargetId = "ajaxLoad" }, new { @id = "validateForm" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content" style="float: left;">
+            <div class="modal-header" style="float: left; width: 96.5%;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"><legend>Thêm người dùng</legend></h4>
+            </div>
+            <div class="modal-body" style="float: left">
+
+                <p style="color: gray; font-style: italic; padding-left: 40px">
+                    Chú ý những phần đánh dấu ( <span style="color: red">*</span> ) sao bắt buộc phải nhập đầy đủ
+                </p>
+
+                <legend>Thông tin tài khoản</legend>
+                <div style="width: 90%; margin: 0 auto;">
+
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Tên đăng nhập:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name="username" minlength="8" class="required text ui-widget-content ui-corner-all">
+                            <label for="username" generated="true" class="error"
+                                style="display: inline;">
+                                * Nhập tài khoản đăng nhập vào hệ thống</label>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Mật khẩu:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="password" name="re-password" id="ps" class="required text ui-widget-content ui-corner-all">
+                            <label for="re-password" generated="true" class="error"
+                                style="display: inline;">
+                                * Nhập mật khẩu đăng nhập</label>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Nhập lại mật khẩu:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="password" name="password" equalto="#ps" class="required text ui-widget-content ui-corner-all">
+                            <label for="password" generated="true" class="error"
+                                style="display: inline;">
+                                * Nhập lại mật khẩu đăng nhập</label>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <div style="width: 100%; height: 20px"></div>
+                <legend>Thông tin liên hệ</legend>
+                <div style="width: 90%; margin: 0 auto">
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Email:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name="email" class="required email text ui-widget-content ui-corner-all">
+                            <label for="email" generated="true" class="error"
+                                style="display: inline;">
+                                * Nhập email liên hệ khách hàng</label>
+                        </div>
+                    </div>
+
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Công ty/Cá nhân :</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name="provider_name" class="required text ui-widget-content ui-corner-all">
+                            <label for="provider_name" generated="true" class="error"
+                                style="display: inline;">
+                                * Tên công ty hoặc cá nhân</label>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Số điện thoại:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name="phone_number" class="required number text ui-widget-content ui-corner-all">
+                            <label for="phone_number" generated="true" class="error"
+                                style="display: inline;">
+                                * Số di động của khách hàng</label>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label for="txtTitle">Tel:</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name="tel" class="number text ui-widget-content ui-corner-all">
+                            <label for="tel" generated="true" class="error"
+                                style="display: inline; color: gray">
+                                Số cố định của khách hàng</label>
+                        </div>
+                    </div>
+                    <div class="sub">
+                        <div class="editor-label">
+                            <label>Quyền sử dụng:</label>
+                        </div>
+                        <div class="editor-field">
+                            <select name="cbCategoryID" id="cbCategory">
+                                <option value="1">Administrator</option>
+                                <option value="2" selected="selected">Partner</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sub" style="position: relative">
+                        <div class="editor-label" style="margin-top: 40px">
+                            <label for="txtTitle">Thông tin chung:</label>
+                        </div>
+                        <div class="editor-field">
+                            <textarea class="text ui-widget-content ui-corner-all" cols="40" rows="6"></textarea>
+                            <p style="position: absolute; right: 0; top: 0; width: 330px; z-index: 100; text-align: left">Thông tin chung gồm địa chỉ và một số thông tin liên quan đên đối tác kinh doanh</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" style="float: left; width: 95.5%;">
+                <input type="submit" class="button add" value="Thêm mới" />
+                <button type="button" class="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+}

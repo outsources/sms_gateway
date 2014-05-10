@@ -1,0 +1,64 @@
+﻿@using sms_source.Areas.admin.Models
+@model List<sms_send_log>
+<table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
+    <tr class="header">
+        <th align="center" scope="col">STT</th>
+        <th align="left" scope="col">SĐT Khách hàng</th>
+        <th align="left" scope="col">Mã lệnh</th>
+        <th align="left" scope="col">Số tổng đài</th>
+        <th align="left" scope="col">Nhà mạng</th>
+        <th align="left" scope="col" style="width: 350px;">Nội dung trả lời</th>
+        <th align="left" scope="col">Ngày gửi</th>
+        <th scope="col">&nbsp;</th>
+    </tr>
+    @{
+        if (Model.Count == 0)
+        {
+        <tr>
+            <td colspan="8"><b>Không tìm thấy kết quả</b></td>
+        </tr>
+        }
+        else
+        {
+            for (int i = 0; i < Model.Count; i++)
+            {
+                var db = new Helper.DbContext<telcos>();
+                db.Select(new[] { "telcos_name" });
+                db.Where("telcos_name", Model[i].telcos.ToString());
+                var objTelco = db.FetchObject()[0];
+
+                var dbMsg = new Helper.DbContext<messages>();
+                dbMsg.Select(new[] { "msg_Content" });
+                dbMsg.Where("id", Model[i].messages_id.ToString());
+                var objMsg = dbMsg.FetchObject()[0];
+
+                var dbCmd = new Helper.DbContext<command_code>();
+                dbCmd.Select(new[] { "cmd_code" });
+                dbCmd.Where("id", Model[i].cmd_id.ToString());
+                var objCmd = dbCmd.FetchObject()[0];
+                    
+        <tr>
+            <td align="center">@(i + 1)
+            </td>
+            <td>@Model[i].sender_number
+            </td>
+            <td>@objCmd.cmd_code
+            </td>
+            <td>@Model[i].service_number
+            </td>
+            <td>@objTelco.telcos_name
+            </td>
+            <td>@objMsg.msg_Content
+            </td>
+            <td>@Model[i].create_date
+            </td>
+
+            <td>
+                <a href="#">Chi tiết</a>
+            </td>
+        </tr>
+            }
+        }
+    }
+
+</table>

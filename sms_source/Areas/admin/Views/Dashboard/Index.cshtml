@@ -1,0 +1,265 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Thống kê sản lượng'
+            },
+            subtitle: {
+                text: 'Đối tác: Bình Minh (24/04/2014)'
+            },
+            xAxis: {
+                categories: [
+"1h",
+"2h",
+"3h",
+"4h",
+"5h",
+"6h",
+"7h",
+"8h",
+"9h",
+"10h",
+"11h",
+"12h",
+"13h",
+"14h",
+"15h",
+"16h",
+"17h",
+"18h",
+"19h",
+"20h",
+"21h",
+"22h",
+"23h",
+"24h"
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Sản lượng tin nhắn (tin nhắn)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.0f} tin nhắn</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+{
+    "name": "7047",
+    "data": [
+      46,
+      29,
+      16,
+      14,
+      23,
+      66,
+      151,
+      295,
+      415,
+      522,
+      627,
+      646,
+      854,
+      1271,
+      1140,
+      1125,
+      1348,
+      1358,
+      260,
+      342,
+      361,
+      224,
+      157,
+      45
+    ]
+},
+{
+    "name": "7247",
+    "data": [
+      34,
+      9,
+      6,
+      7,
+      5,
+      21,
+      42,
+      91,
+      100,
+      142,
+      166,
+      168,
+      177,
+      187,
+      176,
+      267,
+      326,
+      298,
+      58,
+      106,
+      162,
+      116,
+      55,
+      33
+    ]
+},
+{
+    "name": "7647",
+    "data": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      2,
+      2,
+      33,
+      78,
+      112,
+      120,
+      90,
+      93,
+      116,
+      145,
+      217,
+      262,
+      19,
+      4,
+      4,
+      6,
+      5,
+      1
+    ]
+},
+{
+    "name": "7747",
+    "data": [
+      44,
+      14,
+      12,
+      11,
+      16,
+      36,
+      90,
+      176,
+      227,
+      336,
+      452,
+      482,
+      708,
+      631,
+      763,
+      747,
+      931,
+      880,
+      225,
+      216,
+      185,
+      134,
+      92,
+      38
+    ]
+}
+            ]
+        });
+    });
+    $(function () {
+        $("#datepicker").datepicker();
+
+    });
+</script>
+
+<div>
+    <fieldset>
+        <legend>Tiêu chí thống kê</legend>
+        <div class="sub">
+            <div class="editor-label" style="width: 85px;">
+                <label>Chọn đối tác:</label>
+            </div>
+            <div class="editor-field">
+                <select>
+                    <option value="0" selected="selected">Không chọn</option>
+                    <option value="1">Bình Minh</option>
+                    <option value="2">An Phú</option>
+                    <option value="3">PeaceVNN</option>
+                </select>
+            </div>
+        </div>
+        <div class="sub">
+            <div class="editor-label" style="width: 85px;">
+                <label>Tháng:</label>
+            </div>
+            <div class="editor-field">
+                <select>
+                    @{
+                        for (int i = 0; i < 12; i++)
+                        {
+                            if ((i + 1) == DateTime.Now.Month)
+                            {
+                                <option selected="selected" value="@(i + 1)">@(i + 1)</option>
+                            }
+                        <option value="@(i + 1)">@(i + 1)</option>
+                        }
+                    }
+
+                </select>
+            </div>
+
+        </div>
+        <div class="sub">
+            <div class="editor-label" style="width: 85px;">
+                <label>Năm:</label>
+            </div>
+            <div class="editor-field">
+                <select>
+                    @{
+                        for (int i = 2010; i < DateTime.Now.Year; i++)
+                        {
+                            if ((i + 1) == 2014)
+                            {
+                        <option selected="selected" value="@(i + 1)">@(i + 1)</option>
+                            }
+                        <option value="@(i + 1)">@(i + 1)</option>
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>
+
+        <div class="customButton">
+            <input type="submit" value="Thống kê" />
+        </div>
+    </fieldset>
+</div>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+
+

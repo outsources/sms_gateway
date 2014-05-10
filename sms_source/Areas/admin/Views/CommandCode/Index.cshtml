@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+
+<h2>Quản lý mã dịch vụ</h2>
+<div style="float: left; width: 100%;">
+
+    <fieldset>
+        <legend>Tiêu chí tìm kiếm</legend>
+        <div style="width: 45%; float: left;margin-top:10px">
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Mã Lệnh:</label>
+                </div>
+                <div class="editor-field">
+                    <input type="text" />
+                </div>
+            </div>
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Tiếp đầu ngữ</label>
+                </div>
+                <div class="editor-field">
+                    <select>
+                        <option value="0" selected="selected">Chọn</option>
+                        <option value="8">VUIHOC</option>
+                        <option value="8">TRUYENCUOI</option>
+                        <option value="8">KETQUAXOSO</option>
+                        <option value="8">TINTUC</option>
+                    </select>
+                </div>
+            </div>
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Đối tác</label>
+                </div>
+                <div class="editor-field">
+                    <select>
+                        <option value="0">Chọn</option>
+                        <option value="8" selected="selected">partner</option>
+                        <option value="8">partner 1</option>
+                        <option value="8">partner 2</option>
+                        <option value="8">partner 3</option>
+                        <option value="8">partner 4</option>
+                        <option value="8">partner 5</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="width: 45%; float: left;margin-top:10px">
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Trạng thái</label>
+                </div>
+                <div class="editor-field">
+                    <select>
+                        <option value="0">Chọn</option>
+                        <option value="8" selected="selected">Chờ xét duyệt</option>
+                        <option value="8">Đang hoạt động</option>
+                        <option value="8">Ngừng hoạt đông</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Chọn đầu số:</label>
+                </div>
+                <div class="editor-field">
+                    <select>
+                        <option value="0">Chọn</option>
+                        <option value="8" selected="selected">7047</option>
+                        <option value="1">7147</option>
+                        <option value="2">7247</option>
+                        <option value="3">7347</option>
+                        <option value="4">7447</option>
+                        <option value="5">7547</option>
+                        <option value="6">7647</option>
+                        <option value="7">7747</option>
+                    </select>
+                </div>
+            </div>
+            <div class="sub">
+                <div class="editor-label">
+                    <label>Ngày Tạo</label>
+                </div>
+                <div class="editor-field">
+                    <input type="text" id="datepicker" value="04/24/2014" class="hasDatepicker">
+                </div>
+
+            </div>
+            <div class="sub">
+                <div style="float: left;  padding-left: 320px">
+                    <input type="submit" class="button" value="Tìm kiếm" />
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</div>
+<div style="float: left; width: 100%">
+    <fieldset>
+        <legend>Danh Sách Cú Pháp</legend>
+
+        <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
+            <tr class="header">
+                <th align="center" scope="col">STT</th>
+                <th align="left" scope="col">Đầu số</th>
+                <th align="left" scope="col">Mã lệnh</th>
+                <th align="left" scope="col">Sub</th>                
+                <th align="left" scope="col">Đối tác</th>
+                <th align="left" scope="col">Thời gian áp dụng</th>
+                <th align="left" scope="col" style="width: 350px">Nội dung trả về</th>
+                <th align="left" scope="col">Trạng thái</th>
+                <th align="left" scope="col"></th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>7147</td>
+                <td>SMS</td>
+                <td>TINTUC</td>                
+                <td>partner</td>
+                <td>24/04/2014 08:00 PM</td>
+                <td>ĐTBTT- Viettel trân trọng thông báo: Nhằm đảm bảo hệ thống mạng lưới để phục vụ khách hàng tốt hơn trong dịp tết Nguyên đán 2013 Viettel sẽ tạm ngừng  ...</td>
+                <td>Đang chờ</td>
+                <td>
+                    <a style="width: 60px" title="Sửa" class="table-icon edit" href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                    <a title="Xóa" class="table-icon delete" href="#"></a>
+                </td>
+            </tr>
+
+        </table>
+    </fieldset>
+    <div style="float: left; width: 100%;">
+        <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+        @Ajax.ActionLink("Thêm mới", "Insert", "CommandCode",
+            new AjaxOptions()
+            {
+                UpdateTargetId = "myModal"
+            }, new {style="width: 60px; float: right",
+                data_toggle ="modal",data_target ="#myModal",@class="button add" })
+    </div>
+</div>
+
+
+@*Form Thêm*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+</div>

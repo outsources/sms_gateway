@@ -1,0 +1,210 @@
+﻿@using sms_source.Areas.admin.Models
+@model List<sms_receive_log>
+@{
+    ViewBag.Title = "SmsReceive";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+<h2>Tra cứu tin nhắn đến (MO)</h2>
+<div>
+    <fieldset>
+        <legend>Tiêu chí tìm kiếm</legend>
+        @using (Ajax.BeginForm("SmsReceiveSearch", "Sms", new AjaxOptions { UpdateTargetId = "result", InsertionMode = InsertionMode.Replace }))
+        {
+            <div style="width: 35%; float: left">
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>SĐT người gửi:</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="number" name="sender_number" />
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Số tổng đài:</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="number" name="service_number" />
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Mã dịch vụ:</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="text" name="command_code" />
+                    </div>
+                </div>
+            </div>
+            <div style="width: 35%; float: left">
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Nhà mạng:</label>
+                    </div>
+                    <div class="editor-field">
+                        <select name="telcos">
+                            <option value="">Chọn nhà mạng</option>
+                            @{
+            var listTelco = (List<telcos>)ViewBag.listTelco;
+            foreach (var objTelco in listTelco)
+            {
+                                <option value="@objTelco.id">@objTelco.telcos_name</option>
+            }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                @*<div class="sub">
+                    <div class="editor-label">
+                        <label>Tháng:</label>
+                    </div>
+                    <div class="editor-field">
+                        <select name="cbMonth">
+                            <option value="">Chọn</option>
+                            @{
+                                for (int i = 0; i < 12; i++)
+                                {
+                                    <option value="@(i + 1)">@(i + 1)</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                    <div class="editor-label" style="width: 60px;">
+                        <label>Năm:</label>
+                    </div>
+                    <div class="editor-field">
+                        <select name="cbYear">
+                            <option value="">Chọn</option>
+                            @{
+                                for (int i = 2010; i < 2014; i++)
+                                {
+                                    <option value="@(i + 1)">@(i + 1)</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+
+                </div>
+                <div class="sub">
+
+                    <div class="editor-label">
+                        <label>Tra cứu theo ngày:</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="date" id="datepicker" name="txtDate">
+                    </div>
+
+                </div>*@
+            </div>
+            <div style="float: left; left: -25px; position: relative; top: 60px; width: 15%;">
+                <input type="submit" class="button" value="Tìm kiếm" />
+            </div>
+        }
+
+    </fieldset> 
+</div>
+
+<div style="float: left; width: 100%; margin-top: 15px;">
+    <fieldset>
+        <legend>Danh sách tin nhắn</legend>
+        <div id="result">
+            <table class="tableList" cellspacing="0">
+                <tr class="header">
+                    <th align="center" scope="col">STT</th>
+                    <th align="left" scope="col">SĐT gửi</th>
+                    <th align="left" scope="col">Mã lệnh</th>
+                    <th align="left" scope="col">Số tổng đài</th>
+                    <th align="left" scope="col">Nhà mạng</th>
+                    <th align="left" scope="col">Ngày gửi</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var db = new Helper.DbContext<telcos>();
+                    db.Select(new[] {"telcos_name" });
+                    db.Where("telcos_name", Model[i].telcos.ToString());
+                    var objTelco = db.FetchObject()[0];
+
+                    var dbCmd = new Helper.DbContext<command_code>();
+                    dbCmd.Select(new[] { "cmd_code" });
+                    dbCmd.Where("id", Model[i].cmd_id.ToString());
+                    var objCmd = dbCmd.FetchObject()[0];
+                    
+                    <tr>
+                        <td align="center">@(i + 1)</td>
+                        <td>
+                            <a href="#" data-toggle="modal" data-target="#myModal">@Model[i].sender_number</a>
+                        </td>
+                        <td>@objCmd.cmd_code
+                        </td>
+                        <td>@Model[i].service_number
+                        </td>
+                        <td>@objTelco.telcos_name
+                        </td>
+                        <td>@Model[i].sender_date
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </fieldset>
+    <div style="float: left; width: 100%;">
+        <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
+            </div>
+            <div class="modal-body">
+
+                <fieldset>
+                    <legend>Nhập thông tin</legend>
+                    <div class="sub" style="height: auto; margin-top: 10px; margin-right: 2%">
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label>Số điện thoại:</label>
+                            </div>
+                            <div class="editor-field">
+                                <b>841234567189</b>
+                            </div>
+                        </div>
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label>Đầu số:</label>
+                            </div>
+                            <div class="editor-field">
+                                <b>7047</b>
+                            </div>
+                        </div>
+
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label>Nội dung tin nhắn</label>
+                            </div>
+                            <div class="editor-field">
+                                <textarea cols="48" rows="7"></textarea>
+                                (0/160 ký tự)                    
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button">Gửi tin</button>
+                <button type="button" class="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

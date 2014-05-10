@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "MoMt";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+
+<h2>Đối soát đầu số 7x47 giữa các nhà mạng</h2>
+<div>
+    <fieldset>
+        <legend>Tiêu chí tìm kiếm</legend>
+
+
+        @using (Ajax.BeginForm("SearchMoMt", "Statistics",
+            new AjaxOptions() { UpdateTargetId = "result" }))
+        {
+            <div class="sub" style="width: 25%">
+                <div class="editor-label">
+                    <label>Từ ngày:</label>
+                </div>
+                <div class="editor-field">
+                    <input type="datetime-local" name="txtFromDate" value="05/08/2014">
+                </div>
+            </div>            
+            <div class="sub" style="width: 25%">
+                <div class="editor-label">
+                    <label>Từ ngày:</label>
+                </div>
+                <div class="editor-field">
+                    <input type="datetime-local" name="txtToDate" value="05/10/2014">
+                </div>
+            </div>  
+            <div class="customButton">
+                <input type="submit" value="Thống kê" />
+            </div>
+        }
+
+    </fieldset>
+</div>
+<div id="result">
+
+</div>

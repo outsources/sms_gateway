@@ -1,0 +1,94 @@
+﻿@using System.Data
+@using Helper
+
+@model List<DataTable>
+<div style="float: left; width: 100%; margin-top: 15px;">
+    <fieldset>
+        <legend>Kết quả</legend>
+        @{           
+            var totalMT = 0;
+            var totalMO = 0;
+            var totalCDR = 0;
+            var dtOverView = ViewBag.overView as System.Data.DataTable;
+            for (var i = 0; i < dtOverView.Rows.Count; i++)
+            {
+                totalMT += int.Parse(dtOverView.Rows[i]["total_mt"].ToString());
+                totalMO += int.Parse(dtOverView.Rows[i]["total_mo"].ToString());
+                totalCDR += int.Parse(dtOverView.Rows[i]["total_cdr"].ToString());
+            }
+            var chenhLech = totalMT - totalMO;
+                
+            <ul class="StaticTelco" style="width: 50%;">
+                <li>Tổng MO: <span>@totalMO</span></li>
+                <li>Tổng CDR: <span>@totalCDR</span></li>
+                <li>Tổng MT: <span>@totalMT</span></li>
+                <li>Tổng Chênh lệch MT: <span>@chenhLech</span></li>
+            </ul>
+            
+            <div style="float: right;">
+                <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+            </div>
+
+            foreach (DataTable table in Model)
+            {
+
+                if (table.Rows.Count == 0) { continue; }
+
+                var dbTelco = new DbContext<sms_source.Areas.admin.Models.telcos>();
+                dbTelco.Select();
+                dbTelco.Where("id", table.Rows[0]["telcos_id"].ToString());
+                var objTelco = dbTelco.FetchObject()[0];
+                    
+                    
+            <table class="tableList">
+                <tbody>
+                    <tr>
+                        <th class="prith" colspan="6">@objTelco.telcos_name</th>
+                    </tr>
+                    <tr class="subTitle" style="background-color: #AAAAAA !important">
+                        <th>Đơn vị</th>
+                        <th>Yêu cầu(MO)</th>
+                        <th>Tính cước(CDR)</th>
+                        <th>Phản hồi(MT)</th>
+                        <th>Chênh lệch MT</th>
+
+                    </tr>
+                    @{
+                var totalMOSub = 0; var totalMTSub = 0; var totalCDRSub = 0; var totalChenhLechSub = 0;
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    var dbService = new DbContext<sms_source.Areas.admin.Models.service_numbers>();
+                    dbService.Select();
+                    dbService.Where("id", table.Rows[i]["service_number_id"].ToString());
+                    var objService = dbService.FetchObject()[0];
+                    
+                    var chenhLechSub = int.Parse(table.Rows[i]["total_mt"].ToString()) - int.Parse(table.Rows[i]["total_mo"].ToString());
+                    totalMOSub += int.Parse(table.Rows[i]["total_mo"].ToString());
+                    totalMTSub += int.Parse(table.Rows[i]["total_mt"].ToString());
+                    totalCDRSub += int.Parse(table.Rows[i]["total_cdr"].ToString());
+                    totalChenhLechSub += chenhLechSub;
+
+                        <tr>
+                            <td>@objService.service</td>
+                            <td>@table.Rows[i]["total_mo"]</td>
+                            <td>@table.Rows[i]["total_cdr"]</td>
+                            <td>@table.Rows[i]["total_mt"]</td>
+                            <td>@chenhLechSub</td>
+                        </tr>
+                }
+                        <tr class="footer">
+                            <td>Tổng</td>
+                            <td>@totalMOSub</td>
+                            <td>@totalCDRSub</td>
+                            <td>@totalMTSub</td>
+                            <td>@totalChenhLechSub</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            }
+        }
+
+    </fieldset>
+</div>

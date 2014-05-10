@@ -1,0 +1,137 @@
+﻿@{    
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+<h2>Quản lý tài khoản</h2>
+<div>
+    @using (Ajax.BeginForm("ajaxLoad", "Partner", new AjaxOptions() { UpdateTargetId = "ajaxLoad" }, new { @id = "isValidate" }))
+    {
+        <fieldset>
+            <legend>Tiêu chí tìm kiếm</legend>
+            <div style="width: 35%; float: left">
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Tên đăng nhập:</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="text" />
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Email:</label>
+                    </div>
+                    <div class="editor-field">
+                        <input type="text" />
+                    </div>
+                </div>
+            </div>
+            <div style="width: 35%; float: left">
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Quyền truy cập:</label>
+                    </div>
+                    <div class="editor-field">
+                        <select>
+                            <option value="0">Không chọn</option>
+                            <option value="1">Administrator</option>
+                            <option value="2" selected="selected">Partner</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 35%; float: left">
+                <div class="sub">
+                    <div class="editor-label">
+                        <label>Trạng thái:</label>
+                    </div>
+                    <div class="editor-field">
+                        <select>
+                            <option value="0">Không chọn</option>
+                            <option value="1">Đang hoạt động</option>
+                            <option value="2">Ngừng hoạt động</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div style="float: left; left: -96px; position: relative; width: 15%;">
+                <input type="submit" class="button" value="Tìm kiếm" />
+            </div>
+        </fieldset>
+    }
+</div>
+
+<div style="float: left; width: 100%;">
+    <div id="ajaxLoad">
+        @using System.Data
+        @{
+            DataTable dt = ViewBag.data; 
+        }
+
+        <fieldset>
+            <legend>Danh sách tài khoản</legend>
+            <table class="tableList" cellspacing="0" id="ctphMain_grvUsers">
+                <tr class="header">
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên Công ty/Cá nhân</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Lần đăng nhập cuối</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+                @{
+            
+                    int i = 1;
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        string active = "Đang hoạt động";
+                        if (bool.Parse(item["active"].ToString()) == false)
+                        {
+                            active = "Ngừng hoạt động";
+                        }
+                    <tr>
+                        <td>@i </td>
+                        <td>@item["provider_name"]</td>
+                        <td>@item["email"]</td>
+                        <td>@active</td>
+                        <td>@item["create_date"]</td>
+                        <td>@item["update_date"]</td>
+                        <td>
+                            <a style="width: 60px" title="Sửa" class="table-icon edit"
+                                href="javascript:;" data-toggle="modal" data-target="#myModal"></a>
+                            <a class="table-icon delete" href="javascript:;"></a>
+                            <a class="unblock table-icon" href="#"></a>
+                        </td>
+                    </tr>
+                    }
+                }
+            </table>
+        </fieldset>
+
+    </div>
+
+
+    <div style="float: left; width: 100%;">
+        <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+
+        @Ajax.ActionLink("Thêm mới", "Insert", "Partner",
+            new AjaxOptions()
+            {
+                UpdateTargetId = "myModal"
+            }, new
+            {
+                style = "width: 60px; float: right",
+                data_toggle = "modal",
+                data_target = "#myModal",
+                @class = "button add"
+            })
+    </div>
+
+</div>
+
+@*Form Thêm*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+

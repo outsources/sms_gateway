@@ -1,0 +1,85 @@
+﻿@model sms_source.Areas.admin.Models.service_numbers
+@{
+    var lstTelco = (List<sms_source.Areas.admin.Models.telcos>)ViewBag.lstTelcos;
+}
+@using (Ajax.BeginForm("Insert", "ServiceNumber",new{countTelco = lstTelco.Count} ,new AjaxOptions() { UpdateTargetId = "result" })){
+<div id="result"></div>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+                <fieldset>
+                    <legend>Thêm đầu số tổng đài</legend>
+                    <div style="float: left; width: 45%;">
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label for="txtTitle">Đầu số:</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.service, new
+                           {
+                               @required = "required",
+                               @class = "text ui-widget-content ui-corner-all",
+                               @style = "width: 200px"
+                           })
+                            </div>
+
+                        </div>
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label for="txtTitle">Giá thu từ Khách hàng:</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.price, new
+                                    {
+                                        @required = "required",
+                                        @class = "text ui-widget-content ui-corner-all",
+                                        @style = "width: 200px"
+                                    })
+                            </div>
+
+                        </div>
+                        <div class="sub">
+                            <div class="editor-label">
+                                <label for="txtTitle">Trạng thái:</label>
+                            </div>
+                            <div class="editor-field">
+                                <select name="cbStatus">
+                                    <option value="true">Đang hoạt động</option>
+                                    <option value="false">Ngừng hoạt động</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float: left; width: 55%;">
+                        <fieldset>
+                            <legend>Giá nhận từ nhà mạng (vnđ)</legend>
+                            @for (int i = 0; i < lstTelco.Count; i++ )
+                            {                                
+                                <input type="hidden" name="hdTelcoID@(i)" value="@lstTelco[i].id" />
+                                <div class="sub">
+                                    <div class="editor-label">
+                                        <label for="txtTitle">@lstTelco[i].telcos_name:</label>
+                                    </div>
+                                    <div class="editor-field">                                        
+                                        <input type="number" name="txtPrice@(i)" class="text ui-widget-content ui-corner-all">
+                                    </div>
+                                </div>
+                            }                         
+                        </fieldset>
+                    </div>
+                </fieldset>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="button add">Thêm mới</button>
+            <button type="button" class="button" data-dismiss="modal">Hủy</button>
+        </div>
+    </div>
+</div>
+}

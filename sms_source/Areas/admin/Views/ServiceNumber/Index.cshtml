@@ -1,0 +1,127 @@
+﻿@using Helper
+@using sms_source.Areas.admin.Models
+@model List<service_numbers>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/admin.cshtml";
+}
+
+
+<h2>Quản lý đầu số dịch vụ</h2>
+<div style="float: left; width: 100%">
+    <label>Chọn đầu số:</label>
+    <select>
+        <option value="0">7x47</option>
+    </select>
+</div>
+
+<div style="float: left; width: 100%;">
+    <fieldset>
+        <legend>Danh sách đầu số</legend>
+        <table class="tableList">
+            @{
+                var dbTelco = new DbContext<telcos>();
+                dbTelco.Select();
+                var lstTelco = dbTelco.FetchObject();
+                
+            }
+            <tr class="header">
+                <th scope="col" style="width: 30px;" rowspan="2">STT</th>
+                <th scope="col" style="width: 10%;" rowspan="2">Đầu số</th>
+                <th scope="col" style="width: 50%;" colspan="@(lstTelco.Count)">Giá nhận từ nhà mạng (vnđ)</th>
+                <th scope="col"  rowspan="2" >Giá cước chung (vnđ)</th>
+                <th scope="col" style="width: 15%;" rowspan="2">Trạng thái</th>
+                <th scope="col" style="width: 50px;" rowspan="2">&nbsp;</th>
+            </tr>
+            <tr class="header">
+                @for (int i = 0; i < lstTelco.Count; i++)
+                {
+                    <th>@lstTelco[i].telcos_name</th>
+                }
+
+            </tr>
+            @{                
+                for (int i = 0; i < Model.Count; i++)
+                {
+                <tr>
+                    <td align="center">
+                        <span id="ctphMain_grvCategories_lblSTT_0">@(i + 1)</span>
+                    </td>
+                    <td>
+                        <span id="ctphMain_grvCategories_lblCategoryName_0">@Model[i].service</span>
+                    </td>
+
+                    @for (int j = 0; j < lstTelco.Count; j++)
+                    {
+                        var price = dbTelco.getColumnValue("service_rates", "price", new Dictionary<string, string>
+                                {
+                                    {"service_id", Model[i].id.ToString()},
+                                    {"telcos_id", lstTelco[j].id.ToString()},
+
+                                });
+                        if (price == "")
+                        {
+                        <td>0</td>
+                        }
+                        else
+                        {
+                        <td>@price</td>
+                        }
+
+                    }
+                    <td>
+                        <span>@Model[i].price</span>
+                    </td>
+                    @{
+                    if (Model[i].active)
+                    {
+                        <td>
+                            <span>Đang hoạt động</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span>Ngừng hoạt động</span>
+                        </td>
+                    }
+                    }
+
+                    <td>
+                        @Ajax.ActionLink(" ", "Update", "ServiceNumber",
+                                         new { id = @Model[i].id },
+                                         new AjaxOptions() { UpdateTargetId = "myModal" },
+                                         new
+                                         {
+                                             @class = "table-icon edit",
+                                             @title = "Sửa",
+                                             data_toggle = "modal",
+                                             data_target = "#myModal",
+                                             style = "width: 60px;"
+                                         })
+
+                        @Ajax.ActionLink(" ", "Index", "ServiceNumber",
+                                         new { delID = @Model[i].id },
+                                         new AjaxOptions() { Confirm = "Delete?"},
+                                         new { @class = "table-icon delete", @title = "Xóa", style = "width: 60px;" })
+                    </td>
+                </tr>
+                }
+            }
+
+
+
+        </table>
+    </fieldset>
+    <div style="float: left; width: 100%;">
+        <a style="width: 60px; float: right" href="javascript:;" class="button">Xuất Excel</a>
+
+        @Ajax.ActionLink("Thêm mới", "Insert", "ServiceNumber", new AjaxOptions() { UpdateTargetId = "myModal" },
+        new { @class = "button add", data_toggle = "modal", data_target = "#myModal", style = "width: 60px; float: right" })
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>

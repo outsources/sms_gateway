@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet" />*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Content/js/bootstrap.min.js")" type="text/javascript"></script>       
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".tableList > tbody > tr:even").addClass("even");
+            $("#menu > li").bind("mouseover", openSub);
+            $("#menu > li").bind("mouseout", closeSub);
+
+            function openSub() {
+                $(this).find("ul").css('visibility', 'visible');
+            };
+
+            function closeSub() {
+                $(this).find("ul").css('visibility', 'hidden');
+            };
+
+
+        });
+
+
+
+    </script>
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+                <h1>SMS Gateway Management</h1>
+            </div>
+            <div id="logindisplay">
+                <text>Welcome <strong>Admin</strong>!
+                [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+            </div>
+            <div id="menucontainer">
+                <ul id="menu">                    
+                    <li>@Html.ActionLink("Tổng quan", "Index", "Dashboard")</li>
+                    <li>@Html.ActionLink("Đầu số tổng đài", "Index", "ServiceNumber")</li>                    
+                    <li>@Html.ActionLink("Mã cú pháp", "Index", "commandcode")</li>
+                                     
+                    <li><a href="javascript:;">Tin nhắn</a>
+                        <ul style="z-index:100">
+                            <li>@Html.ActionLink("Tin nhắn đến", "SmsReceive", "Sms")</li>
+                            <li>@Html.ActionLink("Tin nhắn chờ", "SmsPending", "Sms")</li>
+                            <li>@Html.ActionLink("Tin nhắn lỗi", "SmsError", "Sms")</li>
+                            <li>@Html.ActionLink("Đối soát MO/MT", "MoMt", "Statistics")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Gửi tin CSKH", "CSKH", "Home")</li>
+                    <li>@Html.ActionLink("Báo cáo", "Report", "Statistics")</li>
+                    <li style="margin-right: 0px;"><a href="javascript:;">Quản lý hệ thống</a>
+                        <ul>
+                            <li>@Html.ActionLink("Quản lý nhà mạng", "Index", "Telcos")</li>                            
+                            <li>@Html.ActionLink("Quản lý đối tác", "Index", "partner")</li>
+                            <li>@Html.ActionLink("Quản lý Event", "UserManagement", "Home")</li>                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+</body>
+</html>
